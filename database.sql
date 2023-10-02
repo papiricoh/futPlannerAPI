@@ -1,6 +1,12 @@
 CREATE DATABASE IF NOT EXISTS futplanner;
 USE futplanner;
 
+CREATE TABLE IF NOT EXISTS clubs(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    club_name VARCHAR(255) NOT NULL,
+
+);
+
 CREATE TABLE IF NOT EXISTS categories(
     id INT PRIMARY KEY AUTO_INCREMENT,
     category_name VARCHAR(40) NOT NULL,
@@ -18,8 +24,10 @@ CREATE TABLE IF NOT EXISTS teams(
     id INT PRIMARY KEY AUTO_INCREMENT,
     team_name VARCHAR(255) NOT NULL,
     shield_url VARCHAR(255),
-    sub_category_id INT,
+    sub_category_id INT NOT NULL,
+    club_id INT NOT NULL,
 
+    FOREIGN KEY (club_id) REFERENCES clubs(id) 
     FOREIGN KEY (sub_category_id) REFERENCES sub_categories(id) 
 );
 
