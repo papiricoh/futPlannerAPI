@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS users(
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     photo_url VARCHAR(255),
-    date_of_birth DATE
+    date_of_birth DATE,
+    last_token_key VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS clubs(
