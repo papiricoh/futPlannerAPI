@@ -28,7 +28,10 @@ const User = {
                 `INSERT INTO users (username, password, first_name, last_name, photo_url, date_of_birth) VALUES (?, ?, ?, ?, ?, ?)`, 
                 [data.username, data.cryptedpassword, data.first_name, data.last_name, data.photo_url, data.dob]
             );
-            return result.insertId;
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
         } catch (error) {
             console.error(error);
             throw new Error('Error inserting user into the database');

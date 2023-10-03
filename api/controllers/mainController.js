@@ -17,11 +17,11 @@ exports.newUser = async (req, res) => {
         const data = req.body
         const new_data = {
             username: data.username,
-            password: data.password,    //USE BRCYPT TO ENCODE CRYPTO HASH
+            cryptedpassword: data.password,    //USE BRCYPT TO ENCODE CRYPTO HASH
             first_name: data.first_name,
             last_name: data.last_name,
             photo_url: data.photo_url,
-            date_of_birth: data.date_of_birth
+            dob: data.date_of_birth
         }
         var result = await User.newUser(new_data);
         res.status(200).json(result);
