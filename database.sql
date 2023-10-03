@@ -102,4 +102,3 @@ CREATE TABLE IF NOT EXISTS reports(
     FOREIGN KEY (player_id) REFERENCES player(id),
     FOREIGN KEY (match_id) REFERENCES matches(id)
 );
-
