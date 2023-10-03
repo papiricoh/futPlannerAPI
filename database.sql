@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS categories(
 CREATE TABLE IF NOT EXISTS sub_categories(
     id INT PRIMARY KEY AUTO_INCREMENT,
     sub_category_name VARCHAR(20) NOT NULL,
-    category_id INT,
+    category_id INT NOT NULL,
 
     FOREIGN KEY (category_id) REFERENCES categories(id) 
 );
@@ -102,3 +102,18 @@ CREATE TABLE IF NOT EXISTS reports(
     FOREIGN KEY (player_id) REFERENCES players(id),
     FOREIGN KEY (match_id) REFERENCES matches(id)
 );
+
+INSERT INTO users (id, username, password, first_name, last_name) VALUES (1, 'Admin', 'password', 'Admin', 'Admin');
+INSERT INTO clubs (id, club_name) VALUES (1, 'Test FC');
+INSERT INTO categories (id, category_name) VALUES (1, 'Alevin');
+INSERT INTO sub_categories (id, sub_category_name, category_id) VALUES (1, '1º', 1);
+INSERT INTO teams (id, team_name, sub_category_id, club_id) VALUES (1, 'Test Alevin', 1, 1);
+INSERT INTO users (id, username, password, first_name, last_name) VALUES (2, 'TestTrainer', 'password', 'Trainer', 'Test');
+INSERT INTO trainers (id, user_id, team_id) VALUES (1, 2, 1);
+
+INSERT INTO users (id, username, password, first_name, last_name) VALUES (3, 'TestUser 1', 'password', 'Pacido', 'Dofw');
+INSERT INTO players (user_id, team_id) VALUES (3, 1);
+INSERT INTO users (id, username, password, first_name, last_name) VALUES (4, 'TestUser 2', 'password', 'John', 'Cooper');
+INSERT INTO players (user_id, team_id) VALUES (4, 1);
+INSERT INTO users (id, username, password, first_name, last_name) VALUES (5, 'TestUser 3', 'password', 'Red', 'Hull');
+INSERT INTO players (user_id, team_id) VALUES (5, 1);
