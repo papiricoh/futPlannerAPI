@@ -1,6 +1,6 @@
 module.exports = {
     HOST: "localhost",
-    USER: "server",
-    PASSWORD: "",
+    USER: "root",
+    PASSWORD: "rootroot",
     DB: "futPlanner"
 };
