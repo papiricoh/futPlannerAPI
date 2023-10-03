@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS clubs(
     id INT PRIMARY KEY AUTO_INCREMENT,
     club_name VARCHAR(255) NOT NULL,
-    shield_url VARCHAR(255),
+    shield_url VARCHAR(255)
 
 );
 
@@ -99,6 +99,6 @@ CREATE TABLE IF NOT EXISTS reports(
     fouls INT DEFAULT '0',
     penalties INT DEFAULT '0',
 
-    FOREIGN KEY (player_id) REFERENCES player(id),
+    FOREIGN KEY (player_id) REFERENCES players(id),
     FOREIGN KEY (match_id) REFERENCES matches(id)
 );
