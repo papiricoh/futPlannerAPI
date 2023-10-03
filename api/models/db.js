@@ -22,6 +22,18 @@ const User = {
         }
         throw new Error('No Clubs in the database');
     },
+    async newUser(data) {
+        try {
+            const result = await connection.promise().query(
+                `INSERT INTO users (username, password, first_name, last_name, photo_url, date_of_birth) VALUES (?, ?, ?, ?, ?, ?)`, 
+                [data.username, data.cryptedpassword, data.first_name, data.last_name, data.photo_url, data.dob]
+            );
+            return result.insertId;
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting user into the database');
+        }
+    }
 };
 
 module.exports = User;
