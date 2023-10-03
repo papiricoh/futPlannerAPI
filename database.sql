@@ -1,15 +1,27 @@
 CREATE DATABASE IF NOT EXISTS futplanner;
 USE futplanner;
 
+
+CREATE TABLE IF NOT EXISTS users(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    photo_url VARCHAR(255),
+    date_of_birth DATE
+);
+
 CREATE TABLE IF NOT EXISTS clubs(
     id INT PRIMARY KEY AUTO_INCREMENT,
     club_name VARCHAR(255) NOT NULL,
+    shield_url VARCHAR(255),
 
 );
 
 CREATE TABLE IF NOT EXISTS categories(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    category_name VARCHAR(40) NOT NULL,
+    category_name VARCHAR(40) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sub_categories(
@@ -27,21 +39,37 @@ CREATE TABLE IF NOT EXISTS teams(
     sub_category_id INT NOT NULL,
     club_id INT NOT NULL,
 
-    FOREIGN KEY (club_id) REFERENCES clubs(id) 
+    FOREIGN KEY (club_id) REFERENCES clubs(id),
     FOREIGN KEY (sub_category_id) REFERENCES sub_categories(id) 
+);
+
+CREATE TABLE IF NOT EXISTS trainers(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    team_id INT,
+
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (team_id) REFERENCES teams(id) 
+);
+
+CREATE TABLE IF NOT EXISTS owners(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    club_id INT,
+
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (club_id) REFERENCES clubs(id) 
 );
 
 CREATE TABLE IF NOT EXISTS players(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    photo_url VARCHAR(255),
-    date_of_birth DATE,
+    user_id INT NOT NULL,
     position VARCHAR(100),
     shirt_number INT,
     nationality VARCHAR(100) NOT NULL,
     team_id INT,
 
+    FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (team_id) REFERENCES teams(id) 
 );
 
