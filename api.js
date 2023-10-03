@@ -1,14 +1,19 @@
-const express = require('express')
-var cors = require('cors');
-const app = express()
-const port = 3000
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const app = express();
+const routes = require('./api/routes');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
+app.use('/api', routes);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Servidor en ejecución en el puerto ${port}`);
+});
+
+module.exports = app;
