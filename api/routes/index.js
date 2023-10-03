@@ -2,6 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mainController = require('../controllers/mainController.js');
 
-//router.get('/users/:id', userController.getCheckUser);
+router.get('/clubs', mainController.getAllClubs);
 
 module.exports = router;

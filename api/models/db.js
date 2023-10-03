@@ -15,6 +15,15 @@ connection.connect(error => {
     console.log("Successfully connected to the database.");
 });
 
-const User = null;
+const User = {
+    async getAllClubs() {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM clubs`);
+        if (rows.length) {
+            return rows;
+        }
+        throw new Error('No Clubs in the database');
+    },
+};
 
 module.exports = User;
