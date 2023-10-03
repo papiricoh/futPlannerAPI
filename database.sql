@@ -86,11 +86,18 @@ CREATE TABLE IF NOT EXISTS matches(
 );
 
 
-CREATE TABLE IF NOT EXISTS report(
+CREATE TABLE IF NOT EXISTS reports(
     id INT PRIMARY KEY AUTO_INCREMENT,
     player_id INT NOT NULL,
     match_id INT NOT NULL,
     /* DATOS DE RENDIMIENTO DEL JUGADOR */
+    played_time INT DEFAULT '0',
+    goals INT DEFAULT '0',
+    red_cards INT DEFAULT '0',
+    yellow_cards INT DEFAULT '0',
+    recoveries INT DEFAULT '0',
+    fouls INT DEFAULT '0',
+    penalties INT DEFAULT '0',
 
     FOREIGN KEY (player_id) REFERENCES player(id),
     FOREIGN KEY (match_id) REFERENCES matches(id)
