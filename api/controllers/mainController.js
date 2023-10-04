@@ -1,8 +1,9 @@
 const User = require('../models/db');
 
-async function crypt(company_id) {
+//CRYPTO 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-}
 
 exports.getAllClubs = async (req, res) => {
     try {
@@ -21,7 +22,7 @@ exports.newUser = async (req, res) => {
         const data = req.body
         const new_data = {
             username: data.username,
-            cryptedpassword: data.password,    //USE BRCYPT TO ENCODE CRYPTO HASH
+            cryptedpassword: bcrypt.hashSync(data.password, saltRounds),    //USE BRCYPT TO ENCODE CRYPTO HASH
             first_name: data.first_name,
             last_name: data.last_name,
             photo_url: data.photo_url,
