@@ -36,6 +36,14 @@ const User = {
             console.error(error);
             throw new Error('Error inserting user into the database');
         }
+    },
+    async getUserByUsername(username) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM users WHERE username = '` + username + `'`);
+        if (rows.length) {
+            return rows[0];
+        }
+        throw new Error('No User with the name ' + username + ' in the database');
     }
 };
 
