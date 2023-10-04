@@ -1,5 +1,9 @@
 const User = require('../models/db');
 
+async function crypt(company_id) {
+
+}
+
 exports.getAllClubs = async (req, res) => {
     try {
         res.status(200).json(await User.getAllClubs());
