@@ -29,6 +29,7 @@ localhost:8080
 
 Be aware that all calls begin with `/api`. As an example: `localhost:8080/api/logIn`
 Post methods use `x-www-form-unencoded`.
+´[]´ in parameters means CAN be Null.
 
 ### GET
 
