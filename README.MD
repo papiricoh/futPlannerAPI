@@ -29,7 +29,7 @@ localhost:8080
 
 Be aware that all calls begin with `/api`. As an example: `localhost:8080/api/logIn`
 Post methods use `x-www-form-unencoded`.
-´[]´ in parameters means CAN be Null.
+The symbol `[]` in parameters means CAN be Null.
 
 ### GET
 
@@ -40,7 +40,7 @@ Post methods use `x-www-form-unencoded`.
 
 - `/api/newUser`:
   - Create a new user
-  - Parameters: `username, password, first_name, last_name, photo_url, date_of_birth`
+  - Parameters: `username, password, first_name, last_name, [photo_url], date_of_birth`
   - Returns: `newUser id : Integer`
 - `/api/logIn`:
   - Traditional Log-In
