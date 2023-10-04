@@ -28,12 +28,20 @@ localhost:8080
 ## Methods
 
 Be aware that all calls begin with `/api`. As an example: `localhost:8080/api/logIn`
+Post methods use `x-www-form-unencoded`.
 
 ### GET
 
 - `/api/clubs`:
+  - Display a list of all clubs
 
 ### POST
 
 - `/api/newUser`:
+  - Create a new user
+  - Parameters: `username, password, first_name, last_name, photo_url, date_of_birth`
+  - Returns: `newUser id : Integer`
 - `/api/logIn`:
+  - Traditional Log-In
+  - Parameters: `username, password`
+  - Returns: `user : Object`
