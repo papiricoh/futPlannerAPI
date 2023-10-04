@@ -40,7 +40,7 @@ exports.logIn = async (req, res) => {
         var result = null;
         const data = req.body
         const gettedUser = await User.getUserByUsername(data.username);
-        console.log(gettedUser);
+        
         if(await bcrypt.compareSync(data.password, gettedUser.password)) {
             result = gettedUser;
         }else {
