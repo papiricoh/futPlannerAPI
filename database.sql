@@ -103,6 +103,9 @@ CREATE TABLE IF NOT EXISTS reports(
     FOREIGN KEY (match_id) REFERENCES matches(id)
 );
 
+ALTER TABLE futplanner.users ADD CONSTRAINT users_UN UNIQUE KEY (username);
+
+
 INSERT INTO users (id, username, password, first_name, last_name) VALUES (1, 'Admin', '$2b$10$0n9TEDVIGCyUICtRE5CrMuR2Rgux7os4RleTFzWwkCWkAjQMMxajO', 'Admin', 'Admin');
 INSERT INTO clubs (id, club_name) VALUES (1, 'Test FC');
 INSERT INTO categories (id, category_name) VALUES (1, 'Alevin');
