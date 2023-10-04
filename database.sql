@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS reports(
     FOREIGN KEY (match_id) REFERENCES matches(id)
 );
 
-INSERT INTO users (id, username, password, first_name, last_name) VALUES (1, 'Admin', 'password', 'Admin', 'Admin');
+INSERT INTO users (id, username, password, first_name, last_name) VALUES (1, 'Admin', '$2b$10$0n9TEDVIGCyUICtRE5CrMuR2Rgux7os4RleTFzWwkCWkAjQMMxajO', 'Admin', 'Admin');
 INSERT INTO clubs (id, club_name) VALUES (1, 'Test FC');
 INSERT INTO categories (id, category_name) VALUES (1, 'Alevin');
 INSERT INTO sub_categories (id, sub_category_name, category_id) VALUES (1, '1º', 1);
