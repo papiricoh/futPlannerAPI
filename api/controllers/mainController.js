@@ -4,6 +4,9 @@ const User = require('../models/db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+async function generateToken(username) {
+    
+}
 
 exports.getAllClubs = async (req, res) => {
     try {
