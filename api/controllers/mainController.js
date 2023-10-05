@@ -3,9 +3,10 @@ const User = require('../models/db');
 //CRYPTO 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const tokenSaltRounds = 4;
 
 async function generateToken(username) {
-    
+    return await bcrypt.hashSync(username, tokenSaltRounds);
 }
 
 exports.getAllClubs = async (req, res) => {
@@ -29,7 +30,7 @@ exports.newUser = async (req, res) => {
             first_name: data.first_name,
             last_name: data.last_name,
             photo_url: data.photo_url,
-            dob: data.date_of_birth
+            dob: data.date_of_birth,
         }
         var result = await User.newUser(new_data);
         res.status(200).json(result);
