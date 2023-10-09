@@ -44,7 +44,22 @@ const User = {
             return rows[0];
         }
         throw new Error('No User with the name ' + username + ' in the database');
-    }
+    },
+    async setNewToken(data) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE users SET last_token_key = ? WHERE username = ?`, 
+                [data.token, data.username]
+            );
+            if(result.length){
+                return true;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting user into the database');
+        }
+    },
 };
 
 module.exports = User;

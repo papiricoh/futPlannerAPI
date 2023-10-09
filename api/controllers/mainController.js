@@ -50,7 +50,9 @@ exports.logIn = async (req, res) => {
         }else {
             throw new Error('Incorrect password')
         }
-
+        result.token = await generateToken(result.username);
+        tokenized = {token: result.token, username: result.username};
+        User.setNewToken(tokenized);
         res.status(200).json(result);
     } catch (err) {
         if (err.message.includes("password")) {
