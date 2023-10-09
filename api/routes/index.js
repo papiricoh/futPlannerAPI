@@ -6,5 +6,6 @@ router.get('/clubs', mainController.getAllClubs);
 
 router.post('/newUser', mainController.newUser);
 router.post('/logIn', mainController.logIn);
+router.post('/logIn/token', mainController.logInToken);
 
 module.exports = router;

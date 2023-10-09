@@ -50,12 +50,33 @@ exports.logIn = async (req, res) => {
         }else {
             throw new Error('Incorrect password')
         }
-        result.token = await generateToken(result.username);
-        tokenized = {token: result.token, username: result.username};
+        result.last_token_key = await generateToken(result.username);
+        tokenized = {token: result.last_token_key, username: result.username};
         User.setNewToken(tokenized);
         res.status(200).json(result);
     } catch (err) {
         if (err.message.includes("password")) {
+            res.status(404).json({ error: err.message });
+        } else {
+            res.status(500).json({ error: "Internal Server Error: " + err.message });
+        }
+    }
+};
+
+exports.logInToken = async (req, res) => {
+    try {
+        var result = null;
+        const data = req.body
+        const gettedUser = await User.getUserByUsername(data.username);
+        
+        if(data.token == gettedUser.last_token_key) {
+            result = gettedUser;
+        }else {
+            throw new Error('Incorrect token')
+        }
+        res.status(200).json(result);
+    } catch (err) {
+        if (err.message.includes("token")) {
             res.status(404).json({ error: err.message });
         } else {
             res.status(500).json({ error: "Internal Server Error: " + err.message });
