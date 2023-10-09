@@ -53,6 +53,7 @@ exports.logIn = async (req, res) => {
         result.last_token_key = await generateToken(result.username);
         tokenized = {token: result.last_token_key, username: result.username};
         User.setNewToken(tokenized);
+        result.password = null;
         res.status(200).json(result);
     } catch (err) {
         if (err.message.includes("password")) {
@@ -74,6 +75,7 @@ exports.logInToken = async (req, res) => {
         }else {
             throw new Error('Incorrect token')
         }
+        result.password = null;
         res.status(200).json(result);
     } catch (err) {
         if (err.message.includes("token")) {
