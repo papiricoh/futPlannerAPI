@@ -60,6 +60,21 @@ const User = {
             throw new Error('Error inserting user into the database');
         }
     },
+    async changePassword(data) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE users SET password = ? WHERE username = ? AND password = ?`, 
+                [data.new_password, data.username, data.old_password]
+            );
+            if(result.length){
+                return true;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting user into the database');
+        }
+    },
 };
 
 module.exports = User;
