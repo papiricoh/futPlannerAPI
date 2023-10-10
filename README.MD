@@ -47,4 +47,12 @@ The symbol `[]` in parameters means CAN be Null.
 - `/api/logIn`:
   - Traditional Log-In
   - Parameters: `username, password`
+  - Returns: `user : Object` 
+- `/api/logIn/token`:
+  - Traditional Token Log-In
+  - Parameters: `username, token`
+  - Returns: `user : Object`
+- `/api/user/changePassword`:
+  - Traditional Change Password
+  - Parameters: `username, new_password, old_password`
   - Returns: `user : Object`
