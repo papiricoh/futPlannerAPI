@@ -75,6 +75,30 @@ const User = {
             throw new Error('Error inserting user into the database');
         }
     },
+    async getPlayer(username) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM players WHERE user_id = (SELECT id FROM users WHERE username = '` + username + `')`);
+        if (rows.length) {
+            return rows[0];
+        }
+        throw new Error('No Player with the name ' + username + ' in the database');
+    },
+    async getTrainer(username) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM trainers WHERE user_id = (SELECT id FROM users WHERE username = '` + username + `')`);
+        if (rows.length) {
+            return rows[0];
+        }
+        throw new Error('No Player with the name ' + username + ' in the database');
+    },
+    async getOwner(username) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM owners WHERE user_id = (SELECT id FROM users WHERE username = '` + username + `')`);
+        if (rows.length) {
+            return rows[0];
+        }
+        throw new Error('No Player with the name ' + username + ' in the database');
+    },
 };
 
 module.exports = User;
