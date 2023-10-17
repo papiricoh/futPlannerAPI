@@ -9,6 +9,11 @@ async function generateToken(username) {
     return await bcrypt.hashSync(username, tokenSaltRounds);
 }
 
+
+async function getUserType(username) {
+    
+}
+
 exports.getAllClubs = async (req, res) => {
     try {
         res.status(200).json(await User.getAllClubs());

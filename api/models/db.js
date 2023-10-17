@@ -81,7 +81,7 @@ const User = {
         if (rows.length) {
             return rows[0];
         }
-        throw new Error('No Player with the name ' + username + ' in the database');
+        return null;
     },
     async getTrainer(username) {
         const [rows, fields] = await connection.promise().query(
@@ -89,7 +89,7 @@ const User = {
         if (rows.length) {
             return rows[0];
         }
-        throw new Error('No Player with the name ' + username + ' in the database');
+        return null;
     },
     async getOwner(username) {
         const [rows, fields] = await connection.promise().query(
@@ -97,7 +97,7 @@ const User = {
         if (rows.length) {
             return rows[0];
         }
-        throw new Error('No Player with the name ' + username + ' in the database');
+        return null;
     },
 };
 
