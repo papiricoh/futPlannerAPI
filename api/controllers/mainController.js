@@ -9,11 +9,6 @@ async function generateToken(username) {
     return await bcrypt.hashSync(username, tokenSaltRounds);
 }
 
-
-async function getUserType(username) {
-    
-}
-
 exports.getAllClubs = async (req, res) => {
     try {
         res.status(200).json(await User.getAllClubs());
@@ -28,7 +23,7 @@ exports.getAllClubs = async (req, res) => {
 
 exports.newUser = async (req, res) => {
     try {
-        const data = req.body
+        const data = req.body;
         const new_data = {
             username: data.username,
             cryptedpassword: await bcrypt.hashSync(data.password, saltRounds),    //USE BRCYPT TO ENCODE CRYPTO HASH

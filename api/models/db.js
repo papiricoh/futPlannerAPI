@@ -37,6 +37,36 @@ const User = {
             throw new Error('Error inserting user into the database');
         }
     },
+    async getUserType(userId) {
+        try {
+          const [rows, fields] = await connection.promise().query(
+            `
+              SELECT
+                CASE
+                  WHEN o.user_id IS NOT NULL THEN 'owner'
+                  WHEN p.user_id IS NOT NULL THEN 'player'
+                  WHEN t.user_id IS NOT NULL THEN 'trainer'
+                  ELSE 'unkown'
+                END AS tipo_usuario
+              FROM users u
+              LEFT JOIN owners o ON u.id = o.user_id
+              LEFT JOIN players p ON u.id = p.user_id
+              LEFT JOIN trainers t ON u.id = t.user_id
+              WHERE u.id = ?
+            `, 
+            [userId]
+          );
+          
+          if (rows.length > 0) {
+            return rows[0].tipo_usuario;
+          } else {
+            throw new Error('User does not exist');
+          }
+        } catch (error) {
+          console.error(error);
+          throw new Error('Error querying the database');
+        }
+    },
     async getUserByUsername(username) {
         const [rows, fields] = await connection.promise().query(
         `SELECT * FROM users WHERE username = '` + username + `'`);
