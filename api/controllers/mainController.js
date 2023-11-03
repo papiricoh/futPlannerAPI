@@ -54,6 +54,7 @@ exports.logIn = async (req, res) => {
         tokenized = {token: result.last_token_key, username: result.username};
         User.setNewToken(tokenized);
         delete result.password;
+        result.user_type = await User.getUserType(result.id);
         res.status(200).json(result);
     } catch (err) {
         if (err.message.includes("password")) {
