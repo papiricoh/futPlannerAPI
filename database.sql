@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS players(
     user_id INT NOT NULL,
     position VARCHAR(100),
     shirt_number INT,
-    nationality VARCHAR(100) NOT NULL,
+    nationality VARCHAR(100),
     team_id INT,
 
     FOREIGN KEY (user_id) REFERENCES users(id),

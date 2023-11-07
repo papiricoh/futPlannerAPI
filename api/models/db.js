@@ -37,6 +37,51 @@ const User = {
             throw new Error('Error inserting user into the database');
         }
     },
+    async newOwner(userId, clubId) {
+        try {
+            const result = await connection.promise().query(
+                `INSERT INTO owners (user_id, club_id) VALUES (?, ?)`, 
+                [userId, clubId]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting owner into the database');
+        }
+    },
+    async newTrainer(userId, teamId) {
+        try {
+            const result = await connection.promise().query(
+                `INSERT INTO trainers (user_id, team_id) VALUES (?, ?)`, 
+                [userId, teamId]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting trainer into the database');
+        }
+    },
+    async newPlayer(userId, teamId, position, shirtNumber, nationality) {
+        try {
+            const result = await connection.promise().query(
+                `INSERT INTO players (user_id, team_id, position, shirt_number, nationality) VALUES (?, ?, ?, ?, ?)`, 
+                [userId, teamId, position, shirtNumber, nationality]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting trainer into the database');
+        }
+    },
     async getUserType(userId) {
         try {
           const [rows, fields] = await connection.promise().query(
@@ -74,6 +119,22 @@ const User = {
             return rows[0];
         }
         throw new Error('No User with the name ' + username + ' in the database');
+    },
+    async checkIfExistsClub(id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM clubs WHERE id = '` + id + `'`);
+        if (rows.length) {
+            return rows[0];
+        }
+        throw new Error('No club with id ' + id + ' in the database');
+    },
+    async checkIfExistsTeam(id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM teams WHERE id = '` + id + `'`);
+        if (rows.length) {
+            return rows[0];
+        }
+        throw new Error('No team with id ' + id + ' in the database');
     },
     async setNewToken(data) {
         try {

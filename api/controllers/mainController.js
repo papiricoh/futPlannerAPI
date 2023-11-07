@@ -32,9 +32,44 @@ exports.newUser = async (req, res) => {
             photo_url: data.photo_url,
             dob: data.date_of_birth,
         }
-        var result = await User.newUser(new_data);
+        if(data.type == null || ( data.type != "owner" && data.type != "player" && data.type != "trainer" )) {
+            throw new Error('Invalid userType');
+        }
+        var result = null; //RETURNS USER ID
+        switch (data.type) {
+            case "owner":
+                var clubId = data.club_id;
+                //TODO:
+                await User.checkIfExistsClub(clubId);
+
+                result = await User.newUser(new_data);
+                await User.newOwner(result, clubId);
+                break;
+            case "trainer":
+                var teamId = data.team_id;
+                //TODO:
+                await User.checkIfExistsTeam(teamId);
+
+                result = await User.newUser(new_data);
+                await User.newTrainer(result, teamId);
+                break;
+            case "trainer":
+                var teamId = data.team_id;
+                //TODO:
+                await User.checkIfExistsTeam(teamId);
+
+                result = await User.newUser(new_data);
+                await User.newPlayer(result, teamId, data.position, data.shirt_number, data.nationality);
+                break;
+        
+            default:
+                throw new Error('Invalid userType');
+        }
         res.status(200).json(result);
     } catch (err) {
+        if (err.message.includes("userType")) {
+            res.status(404).json({ error: err.message });
+        }
         res.status(500).json({ error: "Internal Server Error: " + err.message });
     }
 };
