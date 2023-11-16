@@ -42,7 +42,11 @@ The symbol `[]` in parameters means CAN be Null.
 
 - `/api/newUser`:
   - Create a new user
-  - Parameters: `username, password, first_name, last_name, [photo_url], date_of_birth`
+  - Parameters: `username, password, first_name, last_name, [photo_url], date_of_birth, type`
+  - Extra parameters:
+    - If type = player: `team_id, position, shirt_number, nationality`
+    - If type = trainer: `team_id`
+    - If type = owner: `club_id`
   - Returns: `newUser id : Integer`
 - `/api/logIn`:
   - Traditional Log-In

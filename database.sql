@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS clubs(
     id INT PRIMARY KEY AUTO_INCREMENT,
     club_name VARCHAR(255) NOT NULL,
-    shield_url VARCHAR(255)
+    shield_url VARCHAR(255),
+    owner_id INT
 
 );
 
@@ -51,15 +52,6 @@ CREATE TABLE IF NOT EXISTS trainers(
 
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (team_id) REFERENCES teams(id) 
-);
-
-CREATE TABLE IF NOT EXISTS owners(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    club_id INT,
-
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (club_id) REFERENCES clubs(id) 
 );
 
 CREATE TABLE IF NOT EXISTS players(

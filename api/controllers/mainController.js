@@ -53,7 +53,7 @@ exports.newUser = async (req, res) => {
                 result = await User.newUser(new_data);
                 await User.newTrainer(result, teamId);
                 break;
-            case "trainer":
+            case "player":
                 var teamId = data.team_id;
                 //TODO:
                 await User.checkIfExistsTeam(teamId);

@@ -40,7 +40,7 @@ const User = {
     async newOwner(userId, clubId) {
         try {
             const result = await connection.promise().query(
-                `INSERT INTO owners (user_id, club_id) VALUES (?, ?)`, 
+                `UPDATE clubs SET owner_id = ? WHERE id = ?`, 
                 [userId, clubId]
             );
             if(result.length){
@@ -88,13 +88,13 @@ const User = {
             `
               SELECT
                 CASE
-                  WHEN o.user_id IS NOT NULL THEN 'owner'
+                  WHEN o.owner_id IS NOT NULL THEN 'owner'
                   WHEN p.user_id IS NOT NULL THEN 'player'
                   WHEN t.user_id IS NOT NULL THEN 'trainer'
                   ELSE 'unkown'
                 END AS tipo_usuario
               FROM users u
-              LEFT JOIN owners o ON u.id = o.user_id
+              LEFT JOIN clubs o ON u.id = o.owner_id
               LEFT JOIN players p ON u.id = p.user_id
               LEFT JOIN trainers t ON u.id = t.user_id
               WHERE u.id = ?
