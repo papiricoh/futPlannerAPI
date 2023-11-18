@@ -8,7 +8,7 @@ exports.getUserTeam = async (req, res) => {
             throw new Error("User is owner or undefined")
         }
         var result = await User.getUserTeam(data.user_id);
-        res.status(200).json(result);
+        res.status(200).json(result[0]);
     } catch (err) {
         res.status(500).json({ error: "Internal Server Error: " + err.message });
     }
