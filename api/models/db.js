@@ -52,6 +52,21 @@ const User = {
             throw new Error('Error inserting owner into the database');
         }
     },
+    async getUserTeam(userId) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT * FROM teams WHERE id = (SELECT team_id FROM ` + await this.getUserType(userId) + `s WHERE user_id = ? LIMIT 1)`, 
+                [userId]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting owner into the database');
+        }
+    },
     async newTrainer(userId, teamId) {
         try {
             const result = await connection.promise().query(

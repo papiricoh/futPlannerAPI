@@ -1,13 +1,13 @@
 const User = require('../models/db');
 
 
-exports.ne2wUser = async (req, res) => {
+exports.getUserTeam = async (req, res) => {
     try {
         const data = req.body
-        const new_data = {
-            username: data.username,
+        if(await User.getUserType(data.user_id) != 'player' && await User.getUserType(data.user_id) != 'trainer') {
+            throw new Error("User is owner or undefined")
         }
-        var result = await User.newUser(new_data);
+        var result = await User.getUserTeam(data.user_id);
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json({ error: "Internal Server Error: " + err.message });

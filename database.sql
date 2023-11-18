@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS trainers(
     user_id INT NOT NULL,
     team_id INT,
 
+    CONSTRAINT trainer_user UNIQUE (user_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (team_id) REFERENCES teams(id) 
 );
