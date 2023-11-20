@@ -139,7 +139,7 @@ const User = {
         const [rows, fields] = await connection.promise().query(
         `SELECT * FROM users WHERE id = '` + id + `'`);
         if (rows.length) {
-            return rows[0];
+            return rows[0].last_token_key;
         }
         throw new Error('No User with id ' + id + ' in the database');
     },

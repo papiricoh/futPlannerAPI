@@ -69,8 +69,9 @@ exports.newUser = async (req, res) => {
     } catch (err) {
         if (err.message.includes("userType")) {
             res.status(404).json({ error: err.message });
+        }else {
+            res.status(500).json({ error: "Internal Server Error: " + err.message });
         }
-        res.status(500).json({ error: "Internal Server Error: " + err.message });
     }
 };
 
