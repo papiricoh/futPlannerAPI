@@ -135,6 +135,14 @@ const User = {
         }
         throw new Error('No User with the name ' + username + ' in the database');
     },
+    async getUserToken(id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM users WHERE id = '` + id + `'`);
+        if (rows.length) {
+            return rows[0];
+        }
+        throw new Error('No User with id ' + id + ' in the database');
+    },
     async checkIfExistsClub(id) {
         const [rows, fields] = await connection.promise().query(
         `SELECT * FROM clubs WHERE id = '` + id + `'`);

@@ -2,7 +2,11 @@ const User = require('../models/db');
 const config = require('../config/config');
 
 async function checkToken(id, token) {
-    
+    if(token == await User.getUserToken(token)) {
+        return true;
+    }else {
+        throw new Error("Token invalid")
+    }
 }
 
 
@@ -19,6 +23,9 @@ exports.getUserTeam = async (req, res) => {
         var result = await User.getUserTeam(data.user_id);
         res.status(200).json(result[0]);
     } catch (err) {
+        if (err.message.includes("Token")) {
+            res.status(404).json({ error: err.message });
+        }
         res.status(500).json({ error: "Internal Server Error: " + err.message });
     }
 };
