@@ -113,6 +113,7 @@ exports.logInToken = async (req, res) => {
             throw new Error('Incorrect token')
         }
         delete result.password;
+        result.user_type = await User.getUserType(result.id);
         res.status(200).json(result);
     } catch (err) {
         if (err.message.includes("token")) {
