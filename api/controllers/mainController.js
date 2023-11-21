@@ -110,7 +110,7 @@ exports.logInToken = async (req, res) => {
         if(data.token == gettedUser.last_token_key) {
             result = gettedUser;
         }else {
-            throw new Error('Incorrect token')
+            throw new Error('Expired token')
         }
         delete result.password;
         result.user_type = await User.getUserType(result.id);
