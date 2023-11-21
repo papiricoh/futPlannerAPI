@@ -67,6 +67,21 @@ const User = {
             throw new Error('Error inserting owner into the database');
         }
     },
+    async getUserClub(userId) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT * FROM clubs WHERE owner_id = ?`, 
+                [userId]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting owner into the database');
+        }
+    },
     async newTrainer(userId, teamId) {
         try {
             const result = await connection.promise().query(

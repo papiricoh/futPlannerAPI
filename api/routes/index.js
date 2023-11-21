@@ -11,5 +11,6 @@ router.post('/logIn/token', mainController.logInToken);
 router.post('/user/changePassword', mainController.changePassword);
 
 router.post('/teams/user', userController.getUserTeam)
+router.post('/club/owner', userController.getOwnerClub)
 
 module.exports = router;
