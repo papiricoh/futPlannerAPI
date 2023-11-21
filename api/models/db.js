@@ -64,7 +64,7 @@ const User = {
             throw new Error();
         } catch (error) {
             console.error(error);
-            throw new Error('Error inserting owner into the database');
+            throw new Error('Error finding team in the database');
         }
     },
     async getUserClub(userId) {
@@ -79,7 +79,7 @@ const User = {
             throw new Error();
         } catch (error) {
             console.error(error);
-            throw new Error('Error inserting owner into the database');
+            throw new Error('Error finding club in the database');
         }
     },
     async newTrainer(userId, teamId) {
