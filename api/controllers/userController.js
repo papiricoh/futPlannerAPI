@@ -17,7 +17,6 @@ async function asignCategories(teams) {
         newTeam.sub_category = sub_category_list[0];
         var category_list = await User.getCategoryById(team.sub_category.category_id);
         newTeam.category = category_list[0];
-        console.log(newTeam);
         new_teams[new_teams.length] = newTeam;
     }
     return new_teams;
