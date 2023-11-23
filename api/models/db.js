@@ -67,6 +67,53 @@ const User = {
             throw new Error('Error finding team in the database');
         }
     },
+    async getTeamsByClub(clubId) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT * FROM teams WHERE club_id = ?`, 
+                [clubId]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error finding team in the database');
+        }
+    },
+    async getSubcategoryById(sub_categoryId) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT * FROM sub_categories WHERE id = ? LIMIT 1`, 
+                [sub_categoryId]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error finding sub-category in the database');
+        }
+    },
+    async getCategoryById(categoryId) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT * FROM categories WHERE id = ? LIMIT 1`, 
+                [categoryId]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error finding category in the database');
+        }
+    },
+
+
     async getUserClub(userId) {
         try {
             const result = await connection.promise().query(
