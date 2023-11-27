@@ -13,6 +13,6 @@ router.post('/user/changePassword', mainController.changePassword);
 router.post('/teams/user', userController.getUserTeam)
 router.post('/club/owner', userController.getOwnerClub)
 router.post('/teams/owner', userController.getOwnerTeams)
-router.post('/freeTrainers/owner', userController.getFreeTrainersAsOwner)
+router.post('/trainers/owner', userController.getTrainersAsOwner)
 
 module.exports = router;

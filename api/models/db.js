@@ -277,11 +277,11 @@ const User = {
     },
     async getTrainersByClub(club_id) {
         const [rows, fields] = await connection.promise().query(
-        `SELECT u.*
+        `SELECT u.*, t.team_id
         FROM users u
         INNER JOIN trainers t ON u.id = t.user_id
         LEFT JOIN teams tm ON t.team_id = tm.id
-        WHERE t.team_id IS NULL AND u.club_id = ?;`, [club_id]);
+        WHERE u.club_id = ?;`, [club_id]);
         if (rows.length) {
             return rows;
         }

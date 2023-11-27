@@ -89,7 +89,7 @@ exports.getOwnerTeams = async (req, res) => {
     }
 };
 
-exports.getFreeTrainersAsOwner = async (req, res) => {
+exports.getTrainersAsOwner = async (req, res) => {
     try {
         const data = req.body
         if(config.tokenMode) {
