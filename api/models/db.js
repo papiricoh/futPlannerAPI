@@ -25,8 +25,8 @@ const User = {
     async newUser(data) {
         try {
             const result = await connection.promise().query(
-                `INSERT INTO users (username, password, first_name, last_name, photo_url, date_of_birth) VALUES (?, ?, ?, ?, ?, ?)`, 
-                [data.username, data.cryptedpassword, data.first_name, data.last_name, data.photo_url, data.dob]
+                `INSERT INTO users (username, password, first_name, last_name, photo_url, date_of_birth, club_id) VALUES (?, ?, ?, ?, ?, ?, ?)`, 
+                [data.username, data.cryptedpassword, data.first_name, data.last_name, data.photo_url, data.dob, data.club_id]
             );
             if(result.length){
                 return result[0].insertId;

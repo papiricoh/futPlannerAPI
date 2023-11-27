@@ -31,6 +31,7 @@ exports.newUser = async (req, res) => {
             last_name: data.last_name,
             photo_url: data.photo_url,
             dob: data.date_of_birth,
+            club_id: data.club_id,
         }
         if(data.type == null || ( data.type != "owner" && data.type != "player" && data.type != "trainer" )) {
             throw new Error('Invalid userType');

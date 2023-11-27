@@ -2,6 +2,14 @@ CREATE DATABASE IF NOT EXISTS futplanner;
 USE futplanner;
 
 
+
+CREATE TABLE IF NOT EXISTS clubs(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    club_name VARCHAR(255) NOT NULL,
+    shield_url VARCHAR(255),
+    owner_id INT
+);
+
 CREATE TABLE IF NOT EXISTS users(
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(100) NOT NULL,
@@ -10,15 +18,10 @@ CREATE TABLE IF NOT EXISTS users(
     last_name VARCHAR(255) NOT NULL,
     photo_url VARCHAR(255),
     date_of_birth DATE,
-    last_token_key VARCHAR(255)
-);
+    last_token_key VARCHAR(255),
+    club_id INT NOT NULL,
 
-CREATE TABLE IF NOT EXISTS clubs(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    club_name VARCHAR(255) NOT NULL,
-    shield_url VARCHAR(255),
-    owner_id INT
-
+    FOREIGN KEY (club_id) REFERENCES clubs(id) 
 );
 
 CREATE TABLE IF NOT EXISTS categories(
@@ -99,17 +102,17 @@ CREATE TABLE IF NOT EXISTS reports(
 ALTER TABLE futplanner.users ADD CONSTRAINT users_UN UNIQUE KEY (username);
 
 
-INSERT INTO users (id, username, password, first_name, last_name) VALUES (1, 'Admin', '$2b$10$0n9TEDVIGCyUICtRE5CrMuR2Rgux7os4RleTFzWwkCWkAjQMMxajO', 'Admin', 'Admin');
 INSERT INTO clubs (id, club_name) VALUES (1, 'Test FC');
+INSERT INTO users (id, username, password, first_name, last_name, club_id) VALUES (1, 'Admin', '$2b$10$0n9TEDVIGCyUICtRE5CrMuR2Rgux7os4RleTFzWwkCWkAjQMMxajO', 'Admin', 'Admin', 1);
 INSERT INTO categories (id, category_name) VALUES (1, 'Alevin');
 INSERT INTO sub_categories (id, sub_category_name, category_id) VALUES (1, '1º', 1);
 INSERT INTO teams (id, team_name, sub_category_id, club_id) VALUES (1, 'Test Alevin', 1, 1);
-INSERT INTO users (id, username, password, first_name, last_name) VALUES (2, 'TestTrainer', 'password', 'Trainer', 'Test');
+INSERT INTO users (id, username, password, first_name, last_name, club_id) VALUES (2, 'TestTrainer', 'password', 'Trainer', 'Test', 1);
 INSERT INTO trainers (id, user_id, team_id) VALUES (1, 2, 1);
 
-INSERT INTO users (id, username, password, first_name, last_name) VALUES (3, 'TestUser 1', 'password', 'Pacido', 'Dofw');
+INSERT INTO users (id, username, password, first_name, last_name, club_id) VALUES (3, 'TestUser 1', 'password', 'Pacido', 'Dofw', 1);
 INSERT INTO players (user_id, team_id) VALUES (3, 1);
-INSERT INTO users (id, username, password, first_name, last_name) VALUES (4, 'TestUser 2', 'password', 'John', 'Cooper');
+INSERT INTO users (id, username, password, first_name, last_name, club_id) VALUES (4, 'TestUser 2', 'password', 'John', 'Cooper', 1);
 INSERT INTO players (user_id, team_id) VALUES (4, 1);
-INSERT INTO users (id, username, password, first_name, last_name) VALUES (5, 'TestUser 3', 'password', 'Red', 'Hull');
+INSERT INTO users (id, username, password, first_name, last_name, club_id) VALUES (5, 'TestUser 3', 'password', 'Red', 'Hull', 1);
 INSERT INTO players (user_id, team_id) VALUES (5, 1);
