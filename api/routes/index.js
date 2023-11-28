@@ -4,6 +4,7 @@ const mainController = require('../controllers/mainController.js');
 const userController = require('../controllers/userController.js');
 
 router.get('/clubs', mainController.getAllClubs);
+router.get('/categories', mainController.getCategories);
 
 router.post('/newUser', mainController.newUser);
 router.post('/logIn', mainController.logIn);

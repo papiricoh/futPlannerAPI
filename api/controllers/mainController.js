@@ -9,6 +9,22 @@ async function generateToken(username) {
     return await bcrypt.hashSync(username, tokenSaltRounds);
 }
 
+exports.getCategories = async (req, res) => {
+    try {
+        var categories = await User.getAllCategories();
+        for (const category of categories) {
+            category.sub_categories = await User.getAllSubCategories(category.id);
+        }
+        res.status(200).json(categories);
+    } catch (err) {
+        if (err.message.includes("Not found")) {
+            res.status(404).json({ error: err.message });
+        } else {
+            res.status(500).json({ error: "Internal Server Error: " + err.message });
+        }
+    }
+};
+
 exports.getAllClubs = async (req, res) => {
     try {
         res.status(200).json(await User.getAllClubs());

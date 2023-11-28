@@ -14,6 +14,22 @@ connection.connect(error => {
 });
 
 const User = {
+    async getAllSubCategories(categoryId) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM sub_categories WHERE category_id = ?`, categoryId);
+        if (rows.length) {
+            return rows;
+        }
+        throw new Error('No Sub Categories in the database');
+    },
+    async getAllCategories() {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM categories`);
+        if (rows.length) {
+            return rows;
+        }
+        throw new Error('No Categories in the database');
+    },
     async getAllClubs() {
         const [rows, fields] = await connection.promise().query(
         `SELECT * FROM clubs`);
