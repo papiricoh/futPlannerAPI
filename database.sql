@@ -101,11 +101,41 @@ CREATE TABLE IF NOT EXISTS reports(
 
 ALTER TABLE futplanner.users ADD CONSTRAINT users_UN UNIQUE KEY (username);
 
+INSERT INTO categories (id, category_name) VALUES (1, 'Prebenjamin');
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('1º', 1);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('2º', 1);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('3º', 1);
+INSERT INTO categories (id, category_name) VALUES (2, 'Benjamin');
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('1º', 2);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('2º', 2);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('3º', 2);
+INSERT INTO categories (id, category_name) VALUES (3, 'Alevin');
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('1º', 3);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('2º', 3);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('3º', 3);
+INSERT INTO categories (id, category_name) VALUES (4, 'Infantil');
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('1º', 4);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('2º', 4);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('3º', 4);
+INSERT INTO categories (id, category_name) VALUES (5, 'Cadete');
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('1º', 5);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('2º', 5);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('3º', 5);
+INSERT INTO categories (id, category_name) VALUES (6, 'Juvenil');
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('Division de Honor', 6);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('Liga Nacional', 6);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('1º', 6);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('2º', 6);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('3º', 6);
+INSERT INTO categories (id, category_name) VALUES (7, 'Aficionado/Regional');
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('Preferente', 7);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('1º', 7);
+INSERT INTO sub_categories (sub_category_name, category_id) VALUES ('2º', 7);
+
 
 INSERT INTO clubs (id, club_name) VALUES (1, 'Test FC');
 INSERT INTO users (id, username, password, first_name, last_name, club_id) VALUES (1, 'Admin', '$2b$10$0n9TEDVIGCyUICtRE5CrMuR2Rgux7os4RleTFzWwkCWkAjQMMxajO', 'Admin', 'Admin', 1);
-INSERT INTO categories (id, category_name) VALUES (1, 'Alevin');
-INSERT INTO sub_categories (id, sub_category_name, category_id) VALUES (1, '1º', 1);
+
 INSERT INTO teams (id, team_name, sub_category_id, club_id) VALUES (1, 'Test Alevin', 1, 1);
 INSERT INTO users (id, username, password, first_name, last_name, club_id) VALUES (2, 'TestTrainer', 'password', 'Trainer', 'Test', 1);
 INSERT INTO trainers (id, user_id, team_id) VALUES (1, 2, 1);
