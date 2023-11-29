@@ -2,6 +2,21 @@ const express = require('express');
 const router = express.Router();
 const mainController = require('../controllers/mainController.js');
 const userController = require('../controllers/userController.js');
+const fileController = require('../controllers/fileController.js');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
+
+router.post('/upload', upload.single('photo'), fileController.uploadPicture);
 
 router.get('/clubs', mainController.getAllClubs);
 router.get('/categories', mainController.getCategories);
