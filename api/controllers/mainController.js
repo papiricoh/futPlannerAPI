@@ -64,16 +64,26 @@ exports.newUser = async (req, res) => {
                 break;
             case "trainer":
                 var teamId = data.team_id;
+                await User.checkIfExistsClub(new_data.club_id);
                 //TODO:
-                await User.checkIfExistsTeam(teamId);
+                if(teamId != null && teamId != "") {
+                    await User.checkIfExistsTeam(teamId);
+                }else {
+                    teamId = null;
+                }
 
                 result = await User.newUser(new_data);
                 await User.newTrainer(result, teamId);
                 break;
             case "player":
                 var teamId = data.team_id;
+                await User.checkIfExistsClub(new_data.club_id);
                 //TODO:
-                await User.checkIfExistsTeam(teamId);
+                if(teamId != null && teamId != "") {
+                    await User.checkIfExistsTeam(teamId);
+                }else {
+                    teamId = null;
+                }
 
                 result = await User.newUser(new_data);
                 await User.newPlayer(result, teamId, data.position, data.shirt_number, data.nationality);

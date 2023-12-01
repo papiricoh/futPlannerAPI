@@ -130,7 +130,7 @@ const User = {
     },
 
 
-    async getUserClub(userId) {
+    async getOwnerClub(userId) {
         try {
             const result = await connection.promise().query(
                 `SELECT * FROM clubs WHERE owner_id = ?`, 
@@ -302,6 +302,21 @@ const User = {
             return rows;
         }
         return null;
+    },
+    async newTeam(data) {
+        try {
+            const result = await connection.promise().query(
+                `INSERT INTO teams (team_name, shield_url, sub_category_id, club_id) VALUES (?, ?, ?, ?)`, 
+                [data.name, data.shield_url, data.sub_category, data.club_id]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting team into the database');
+        }
     },
 };
 

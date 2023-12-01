@@ -54,7 +54,7 @@ exports.getOwnerClub = async (req, res) => {
         if(await User.getUserType(data.user_id) != 'owner') {
             throw new Error("User is player or trainer")
         }
-        var result = await User.getUserClub(data.user_id);
+        var result = await User.getOwnerClub(data.user_id);
         res.status(200).json(result[0]);
     } catch (err) {
         if (err.message.includes("Token")) {
@@ -75,7 +75,7 @@ exports.getOwnerTeams = async (req, res) => {
         if(await User.getUserType(data.user_id) != 'owner') {
             throw new Error("User is player or trainer")
         }
-        var club = await User.getUserClub(data.user_id);
+        var club = await User.getOwnerClub(data.user_id);
 
         var teams = await User.getTeamsByClub(club[0].id);
         var result = await asignCategories(teams);
@@ -99,7 +99,7 @@ exports.getTrainersAsOwner = async (req, res) => {
         if(await User.getUserType(data.user_id) != 'owner') {
             throw new Error("User is player or trainer")
         }
-        var club = await User.getUserClub(data.user_id);
+        var club = await User.getOwnerClub(data.user_id);
         var result = await User.getTrainersByClub(club[0].id);
         for (const user of result) {
             delete user.password;
