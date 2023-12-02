@@ -14,7 +14,8 @@ exports.newTeam = async (req, res) => {
     try {
         var teamShieldRoute = null;
         if (req.file) {
-            teamShieldRoute = req.file.path;
+            const filePath = req.file.path.replace(/\\/g, '/')
+            teamShieldRoute = filePath;
         }
         const data = JSON.parse(req.body.data);
         if(config.tokenMode) {
@@ -38,4 +39,19 @@ exports.newTeam = async (req, res) => {
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
+};
+
+exports.loadImage = async (req, res) => {
+    const imageDir = req.body.data.imageDir;
+    const fullImgDir = path.join(__dirname, `${imageDir}`);
+    console.log(fullImgDir);
+
+    fs.readFile(fullImgDir, (err, data) => {
+        if (err) {
+            res.status(500).send('Unable to read File');
+        } else {
+            const base64Image = new Buffer.from(data).toString('base64');
+            res.status(200).json({ img: base64Image });
+        }
+    });
 };
