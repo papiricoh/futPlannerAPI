@@ -10,7 +10,7 @@ async function checkToken(id, token) {
 }
 
 
-exports.uploadPicture = async (req, res) => {
+exports.newTeam = async (req, res) => {
     try {
         var teamShieldRoute = null;
         if (req.file) {
@@ -30,6 +30,9 @@ exports.uploadPicture = async (req, res) => {
             sub_category: data.team_sub_category_id, 
             club_id: club[0].id
         })
+        if(data.team_trainer != null && data.team_trainer != '') {
+            await User.updateTrainerTeam(data.team_trainer.id, result);
+        }
         
         res.status(200).json(result);
     } catch (err) {

@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/upload/team', upload.single('teamPhoto'), fileController.uploadPicture);
+router.post('/upload/team', upload.single('teamPhoto'), fileController.newTeam);
 
 router.get('/clubs', mainController.getAllClubs);
 router.get('/categories', mainController.getCategories);
