@@ -10,7 +10,7 @@ async function checkToken(id, token) {
 }
 
 
-exports.newTeam = async (req, res) => {
+exports.newTeamExample = async (req, res) => {
     try {
         var teamShieldRoute = null;
         if (req.file) {
