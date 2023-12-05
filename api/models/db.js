@@ -128,6 +128,21 @@ const User = {
             throw new Error('Error finding team in the database');
         }
     },
+    async getTeamCategory(teamId) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT c.category_name AS category, sc.sub_category_name AS subcategory FROM teams t INNER JOIN sub_categories sc ON t.sub_category_id = sc.id INNER JOIN categories c ON sc.category_id = c.id WHERE t.id = ?;`, 
+                [teamId]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error finding team in the database');
+        }
+    },
     async getTeamsByClub(clubId) {
         try {
             const result = await connection.promise().query(

@@ -77,6 +77,10 @@ exports.getFullTeamByIdOwner = async (req, res) => {
         }else {
             result.players = null;
         }
+        const categories = await User.getTeamCategory(data.team_id);
+        result.category = categories[0].category;
+        result.subcategory = categories[0].subcategory;
+
 
         res.status(200).json(result);
     } catch (err) {
