@@ -83,6 +83,51 @@ const User = {
             throw new Error('Error finding team in the database');
         }
     },
+    async getTeamById(teamId) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT * FROM teams WHERE id = ? LIMIT 1`, 
+                [teamId]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error finding team in the database');
+        }
+    },
+    async getTeamTrainer(teamId) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT * FROM users WHERE id = (SELECT user_id FROM trainers WHERE team_id = ? LIMIT 1)`, 
+                [teamId]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error finding team in the database');
+        }
+    },
+    async getTeamPlayers(teamId) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT users.*, players.position, players.shirt_number, players.nationality FROM users INNER JOIN players ON users.id = players.user_id WHERE players.team_id = ?;`, 
+                [teamId]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error finding team in the database');
+        }
+    },
     async getTeamsByClub(clubId) {
         try {
             const result = await connection.promise().query(

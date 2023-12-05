@@ -2,7 +2,7 @@ const User = require('../models/db');
 const config = require('../config/config');
 
 async function checkToken(id, token) {
-    if(token == await User.getUserToken(id)) {
+    if(token != null && token != "" && token == await User.getUserToken(id)) {
         return true;
     }else {
         throw new Error("Token invalid")
@@ -35,6 +35,50 @@ exports.getUserTeam = async (req, res) => {
         }
         var result = await User.getUserTeam(data.user_id);
         res.status(200).json(result[0]);
+    } catch (err) {
+        if (err.message.includes("Token")) {
+            res.status(404).json({ error: err.message });
+        }else {
+            res.status(500).json({ error: "Internal Server Error: " + err.message });
+        }
+    }
+};
+
+exports.getFullTeamByIdOwner = async (req, res) => {
+    try {
+        const data = req.body
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+
+        if(await User.getUserType(data.user_id) != 'owner') {
+            throw new Error("User is player or trainer")
+        }
+        var team = await User.getTeamById(data.team_id);
+        var trainer = await User.getTeamTrainer(data.team_id);
+        if(trainer != null && trainer.length != 0) {
+            trainer = trainer[0];
+            delete trainer.password;
+            delete trainer.last_token_key;
+        }else {
+            trainer = null;
+        }
+        var players = await User.getTeamPlayers(data.team_id);
+
+        for (const p of players) {
+            delete p.password;
+            delete p.last_token_key;
+        }
+
+        var result = team[0];
+        result.trainer = trainer;
+        if(players.length != 0) {
+            result.players = players;
+        }else {
+            result.players = null;
+        }
+
+        res.status(200).json(result);
     } catch (err) {
         if (err.message.includes("Token")) {
             res.status(404).json({ error: err.message });

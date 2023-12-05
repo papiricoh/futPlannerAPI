@@ -33,5 +33,6 @@ router.post('/club/owner', userController.getOwnerClub)
 router.post('/teams/owner', userController.getOwnerTeams)
 router.post('/trainers/owner', userController.getTrainersAsOwner)
 router.post('/newTeam/owner', userController.newTeam)
+router.post('/fullTeam/owner/id', userController.getFullTeamByIdOwner)
 
 module.exports = router;
