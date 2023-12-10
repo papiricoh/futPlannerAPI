@@ -92,6 +92,28 @@ exports.getFullTeamByIdOwner = async (req, res) => {
     }
 };
 
+exports.unasignPlayer = async (req, res) => {
+    try {
+        const data = req.body;
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+
+        if(await User.getUserType(data.user_id) != 'owner') {
+            throw new Error("User is player or trainer")
+        }
+        const result = await User.unasignPlayer(data.player.id);
+        
+        res.status(200).json(result);
+    } catch (err) {
+        if (err.message.includes("Token")) {
+            res.status(404).json({ error: err.message });
+        }else {
+            res.status(500).json({ error: "Internal Server Error: " + err.message });
+        }
+    }
+};
+
 exports.getOwnerClub = async (req, res) => {
     try {
         const data = req.body

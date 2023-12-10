@@ -312,6 +312,21 @@ const User = {
             throw new Error('Error inserting user into the database');
         }
     },
+    async unasignPlayer(player_id) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE players SET team_id = ? WHERE user_id = ?`, 
+                [null, player_id]
+            );
+            if(result.length){
+                return true;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting user into the database');
+        }
+    },
     async changePassword(data) {
         try {
             const result = await connection.promise().query(
