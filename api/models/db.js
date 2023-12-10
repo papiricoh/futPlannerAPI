@@ -327,6 +327,36 @@ const User = {
             throw new Error('Error inserting user into the database');
         }
     },
+    async updatePlayer(player) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE players SET position = ?, shirt_number = ?, nationality = ? WHERE user_id = ?`, 
+                [player.position, player.shirt_number, player.nationality, player.id]
+            );
+            if(result.length){
+                return true;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting user into the database');
+        }
+    },
+    async updateUser(player) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE users SET first_name = ?, last_name = ? WHERE id = ?`, 
+                [player.first_name, player.last_name, player.id]
+            );
+            if(result.length){
+                return true;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting user into the database');
+        }
+    },
     async changePassword(data) {
         try {
             const result = await connection.promise().query(
