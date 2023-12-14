@@ -358,14 +358,11 @@ const User = {
         }
     },
     async updateTrainer(player, team_id) {
-        var t_id = team_id;
-        if(t_id == null) {
-            t_id = ""
-        }
+        
         try {
             const result = await connection.promise().query(
                 `UPDATE trainers SET team_id = ? WHERE id = ?`, 
-                [t_id, player.id]
+                [team_id, player.id]
             );
             if(result.length){
                 return true;
