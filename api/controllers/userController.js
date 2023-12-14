@@ -147,7 +147,7 @@ exports.changeTrainerTeam = async (req, res) => {
         if(await User.getUserType(data.user_id) != 'owner') {
             throw new Error("User is player or trainer")
         }
-        var result = await User.updateTrainer(data.trainer, data.team.id);
+        var result = await User.updateTrainer(data.trainer, data.team_id);
         
         res.status(200).json(result);
     } catch (err) {
