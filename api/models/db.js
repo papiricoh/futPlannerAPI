@@ -357,6 +357,21 @@ const User = {
             throw new Error('Error inserting user into the database');
         }
     },
+    async updateTrainer(player, team_id) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE trainers SET team_id = ? WHERE id = ?`, 
+                [team.id, player.id]
+            );
+            if(result.length){
+                return true;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting user into the database');
+        }
+    },
     async changePassword(data) {
         try {
             const result = await connection.promise().query(

@@ -36,5 +36,6 @@ router.post('/newTeam/owner', userController.newTeam)
 router.post('/fullTeam/owner/id', userController.getFullTeamByIdOwner)
 router.post('/unasignPlayer/owner', userController.unasignPlayer)
 router.post('/updatePlayer/owner', userController.updatePlayer)
+router.post('/changeTrainerTeam/owner', userController.changeTrainerTeam)
 
 module.exports = router;
