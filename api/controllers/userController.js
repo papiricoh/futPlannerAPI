@@ -169,7 +169,7 @@ exports.removeTrainerFromTeam = async (req, res) => {
         if(await User.getUserType(data.user_id) != 'owner') {
             throw new Error("User is player or trainer")
         }
-        var result = await User.updateTrainer(data.trainer, null);
+        var result = await User.removeTrainerFromTeam(data.trainer);
         
         res.status(200).json(result);
     } catch (err) {

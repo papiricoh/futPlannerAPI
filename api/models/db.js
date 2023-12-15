@@ -361,8 +361,24 @@ const User = {
         
         try {
             const result = await connection.promise().query(
-                `UPDATE trainers SET team_id = ? WHERE user_id = ?`, 
+                `UPDATE trainers SET team_id = ? WHERE id = ?`, 
                 [team_id, player.id]
+            );
+            if(result.length){
+                return true;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting user into the database');
+        }
+    },
+    async removeTrainerFromTeam(player) {
+        
+        try {
+            const result = await connection.promise().query(
+                `UPDATE trainers SET team_id = ? WHERE user_id = ?`, 
+                [null, player.id]
             );
             if(result.length){
                 return true;
