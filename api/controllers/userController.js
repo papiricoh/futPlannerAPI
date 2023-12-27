@@ -290,6 +290,9 @@ exports.getAvariablePlayers = async (req, res) => {
         const team_id = data.team_id;
         var result = await User.getAvariablePlayers(team_id);
 
+        for (const player of result) {
+            delete player.password
+        }
         
         res.status(200).json(result);
     } catch (err) {
