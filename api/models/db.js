@@ -470,6 +470,28 @@ const User = {
             throw new Error('Error inserting team into the database');
         }
     },
+    async getAvariablePlayers(team_id) {
+        try {
+            const result = await connection.promise().query(
+                `SELECT 
+                u.*, p.position, p.shirt_number, p.nationality, p.team_id
+            FROM 
+                users u
+                INNER JOIN players p ON u.id = p.user_id
+            WHERE 
+                p.team_id IS NULL
+                AND u.club_id = (SELECT club_id FROM teams WHERE id = ?);`, 
+                [team_id]
+            );
+            if(result.length){
+                return result[0];
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting team into the database');
+        }
+    },
 };
 
 module.exports = User;

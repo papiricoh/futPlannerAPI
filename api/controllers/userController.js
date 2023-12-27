@@ -276,3 +276,23 @@ exports.newTeam = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+
+exports.getAvariablePlayers = async (req, res) => {
+    try {
+        const data = req.body;
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'owner') {
+            throw new Error("User is player or trainer")
+        }
+        const team_id = data.team_id;
+        var result = await User.getAvariablePlayers(team_id);
+
+        
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
