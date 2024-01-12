@@ -361,7 +361,7 @@ const User = {
         
         try {
             const result = await connection.promise().query(
-                `UPDATE trainers SET team_id = ? WHERE id = ?`, 
+                `UPDATE trainers SET team_id = ? WHERE user_id = ?`, 
                 [team_id, player.id]
             );
             if(result.length){
