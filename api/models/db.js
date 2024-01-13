@@ -492,6 +492,21 @@ const User = {
             throw new Error('Error inserting team into the database');
         }
     },
+    async addPlayersToTeam(team_id, player) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE players SET team_id = ? WHERE user_id = ?;`, 
+                [team_id, player.id]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting player team into the database');
+        }
+    },
 };
 
 module.exports = User;

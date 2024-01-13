@@ -39,5 +39,6 @@ router.post('/updatePlayer/owner', userController.updatePlayer)
 router.post('/changeTrainerTeam/owner', userController.changeTrainerTeam)
 router.post('/removeTrainerFromTeam/owner', userController.removeTrainerFromTeam)
 router.post('/getAvariablePlayers/owner', userController.getAvariablePlayers)
+router.post('/addPlayersToTeam/owner', userController.addPlayersToTeam)
 
 module.exports = router;

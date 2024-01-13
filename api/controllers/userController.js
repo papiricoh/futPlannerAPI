@@ -299,3 +299,26 @@ exports.getAvariablePlayers = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+exports.addPlayersToTeam = async (req, res) => {
+    try {
+        const data = req.body;
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'owner') {
+            throw new Error("User is player or trainer")
+        }
+        const team_id = data.team_id;
+        const player_list = data.player_list;
+
+        for (const p of player_list) {
+            await User.addPlayersToTeam(team_id, p);
+        }
+
+        
+        res.status(200).json("OK");
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
