@@ -73,9 +73,12 @@ CREATE TABLE IF NOT EXISTS players(
 CREATE TABLE IF NOT EXISTS matches(
     id INT PRIMARY KEY AUTO_INCREMENT,
     match_date DATE,
-    google_maps_coords VARCHAR(255),
-    home_team_id INT NOT NULL,
-    away_team_id INT NOT NULL,
+    map_coords VARCHAR(255),
+    place_name VARCHAR(255),
+    home_team_id INT,
+    home_team_name VARCHAR(255),
+    away_team_id INT,
+    away_team_name VARCHAR(255),
 
     FOREIGN KEY (home_team_id) REFERENCES teams(id),
     FOREIGN KEY (away_team_id) REFERENCES teams(id)
