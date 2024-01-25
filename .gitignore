@@ -4,3 +4,4 @@ api/config/config.js
 https
 uploads/*
 !uploads/.gitinclude
+.vscode
