@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS trainers(
 CREATE TABLE IF NOT EXISTS players(
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    position VARCHAR(100),
+    position VARCHAR(100) DEFAULT 'SUP',
     shirt_number INT,
     nationality VARCHAR(100),
     team_id INT,
@@ -92,6 +92,10 @@ CREATE TABLE IF NOT EXISTS reports(
     /* DATOS DE RENDIMIENTO DEL JUGADOR */
     general_performance INT DEFAULT '0',
     tactical_performance INT DEFAULT '0',
+    short_pass INT DEFAULT '0',
+    long_pass INT DEFAULT '0',
+    anticipation INT DEFAULT '0',
+
     played_time INT DEFAULT '0',
     goals INT DEFAULT '0',
     red_cards INT DEFAULT '0',
