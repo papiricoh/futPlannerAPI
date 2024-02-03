@@ -92,9 +92,9 @@ CREATE TABLE IF NOT EXISTS reports(
     /* DATOS DE RENDIMIENTO DEL JUGADOR */
     general_performance INT DEFAULT '0',
     tactical_performance INT DEFAULT '0',
-    passes INT DEFAULT '0',
-    ball_controll INT DEFAULT '0',
-    anticipation INT DEFAULT '0',
+    passes_quality INT DEFAULT '0',
+    ball_control INT DEFAULT '0',
+    game_vision INT DEFAULT '0',
 
     played_time INT DEFAULT '0',
     goals INT DEFAULT '0',
