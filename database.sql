@@ -79,8 +79,10 @@ CREATE TABLE IF NOT EXISTS matches(
     home_team_name VARCHAR(255),
     away_team_id INT,
     away_team_name VARCHAR(255),
+    sub_category_id INT NOT NULL,
     evaluated BOOLEAN DEFAULT '0',
 
+    FOREIGN KEY (sub_category_id) REFERENCES sub_categories(id),
     FOREIGN KEY (home_team_id) REFERENCES teams(id),
     FOREIGN KEY (away_team_id) REFERENCES teams(id)
 );
