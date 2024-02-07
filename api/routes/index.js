@@ -17,6 +17,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+/*
+#############################################################
+CORE ROUTES
+#############################################################
+*/
 // router.post('/upload/team', upload.single('teamPhoto'), fileController.newTeam);
 router.post('/load/image', fileController.loadImage);
 
@@ -28,6 +33,11 @@ router.post('/logIn', mainController.logIn);
 router.post('/logIn/token', mainController.logInToken);
 router.post('/user/changePassword', mainController.changePassword);
 
+/*
+#############################################################
+OWNER (FutPlannerAdmin) ROUTES
+#############################################################
+*/
 router.post('/teams/user', userController.getUserTeam)
 router.post('/club/owner', userController.getOwnerClub)
 router.post('/teams/owner', userController.getOwnerTeams)
@@ -40,5 +50,12 @@ router.post('/changeTrainerTeam/owner', userController.changeTrainerTeam)
 router.post('/removeTrainerFromTeam/owner', userController.removeTrainerFromTeam)
 router.post('/getAvariablePlayers/owner', userController.getAvariablePlayers)
 router.post('/addPlayersToTeam/owner', userController.addPlayersToTeam)
+
+/*
+#############################################################
+TRAINER ROUTES
+#############################################################
+*/
+
 
 module.exports = router;
