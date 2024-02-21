@@ -7,6 +7,7 @@ const routes = require('./api/routes');
 //Sistema de almacenaje de archivos
 const multer = require('multer');
 const path = require('path');
+const fileController = require('../controllers/fileController.js');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -19,24 +20,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post('/upload', upload.single('photo'), (req, res) => {
-    const data = req.body; //data.user_id, data.token
-    const file = req.file;
-
-    if (!file) {
-        return res.status(400).send('No se ha subido ningún archivo.');
-    }
-
-    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
-
-    //Almacenar la URL en tu base de datos
-
-    // Envía la URL de la imagen como respuesta
-    res.status(200).json({
-        message: 'Archivo subido con éxito',
-        imageUrl: imageUrl
-    });
-});
+app.post('/upload', upload.single('photo'), fileController.uploadFile);
 
 app.use('/uploads', express.static('uploads'));
 

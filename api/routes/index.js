@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mainController = require('../controllers/mainController.js');
 const userController = require('../controllers/userController.js');
-const fileController = require('../controllers/fileController.js');
 
 /*
 #############################################################
@@ -10,7 +9,6 @@ CORE ROUTES
 #############################################################
 */
 // router.post('/upload/team', upload.single('teamPhoto'), fileController.newTeam);
-router.post('/load/image', fileController.loadImage);
 
 router.get('/clubs', mainController.getAllClubs);
 router.get('/categories', mainController.getCategories);
