@@ -12,7 +12,8 @@ async function checkToken(id, token) {
 
 exports.uploadFile = async (req, res) => {
     try {
-        const data = JSON.parse(req.body.data);//data.user_id, data.token
+        const data = req.body;//data.user_id, data.token, data.type
+        
         if(config.tokenMode) {
             await checkToken(data.user_id, data.token);
         }
@@ -25,7 +26,7 @@ exports.uploadFile = async (req, res) => {
 
         const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
 
-        //Almacenar la URL en tu base de datos
+        //Almacenar la URL en tu base de datos si es tipo perfil o club
 
         // Envía la URL de la imagen como respuesta
         res.status(200).json({

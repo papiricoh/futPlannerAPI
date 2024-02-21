@@ -7,7 +7,7 @@ const routes = require('./api/routes');
 //Sistema de almacenaje de archivos
 const multer = require('multer');
 const path = require('path');
-const fileController = require('../controllers/fileController.js');
+const fileController = require('./api/controllers/fileController.js');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
