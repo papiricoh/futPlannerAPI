@@ -19,8 +19,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post('/upload', upload.single('imagen'), (req, res) => {
+app.post('/upload', upload.single('photo'), (req, res) => {
+    const data = req.body; //data.user_id, data.token
     const file = req.file;
+
     if (!file) {
         return res.status(400).send('No se ha subido ningún archivo.');
     }
