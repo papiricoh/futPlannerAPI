@@ -8,8 +8,6 @@ const userController = require('../controllers/userController.js');
 CORE ROUTES
 #############################################################
 */
-// router.post('/upload/team', upload.single('teamPhoto'), fileController.newTeam);
-
 router.get('/clubs', mainController.getAllClubs);
 router.get('/categories', mainController.getCategories);
 
