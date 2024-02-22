@@ -537,6 +537,37 @@ const User = {
             throw new Error('Error updating club img into the database');
         }
     },
+
+    async trainerGetTeam(user_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM teams WHERE id = (SELECT team_id FROM trainers WHERE user_id = '` + user_id + `') LIMIT 1`);
+        if (rows.length) {
+            return rows[0];
+        }
+        return null;
+    },
+
+    async trainerGetPlayers(team_id) {
+        const [rows, fields] = await connection.promise().query(`SELECT 
+            users.id,
+            users.first_name,
+            users.last_name,
+            users.photo_url,
+            users.date_of_birth,
+            players.position,
+            players.shirt_number,
+            players.nationality
+        FROM 
+            players
+        JOIN 
+            users ON players.user_id = users.id
+        WHERE 
+            players.team_id = ` + team_id + `;`);
+        if (rows.length) {
+            return rows;
+        }
+        return null;
+    },
 };
 
 module.exports = User;

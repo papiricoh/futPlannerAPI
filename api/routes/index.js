@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mainController = require('../controllers/mainController.js');
 const userController = require('../controllers/userController.js');
+const trainerController = require('../controllers/trainerController.js');
 
 /*
 #############################################################
@@ -39,6 +40,7 @@ router.post('/addPlayersToTeam/owner', userController.addPlayersToTeam)
 TRAINER ROUTES
 #############################################################
 */
+router.post('/trainer/getTeam', trainerController.getTeam)
 
 
 module.exports = router;
