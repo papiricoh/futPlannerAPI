@@ -507,6 +507,36 @@ const User = {
             throw new Error('Error inserting player team into the database');
         }
     },
+    async updateProfileImage(user_id, url) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE users SET photo_url = ? WHERE id = ?;`, 
+                [url, user_id]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error updating profile img into the database');
+        }
+    },
+    async updateClubImage(club_id, url) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE clubs SET shield_url = ? WHERE id = ?;`, 
+                [url, club_id]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error updating club img into the database');
+        }
+    },
 };
 
 module.exports = User;

@@ -22,7 +22,7 @@ const upload = multer({ storage: storage });
 
 app.post('/upload', upload.single('photo'), fileController.uploadFile);
 
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', fileController.checkAuth, express.static('uploads'));
 
 //Fin del sistema de almacenaje de archivos
 
