@@ -26,3 +26,21 @@ exports.getTeam = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error: " + err.message });
     }
 };
+
+exports.getMatches = async (req, res) => {
+    try {
+        const data = req.body
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'trainer') {
+            throw new Error("User is not a trainer")
+        }
+        var team = await User.trainerGetTeam(data.user_id);
+        var matches = await User.trainerGetMatches(team.id);
+        
+        res.status(200).json(matches);
+    } catch (err) {
+        res.status(500).json({ error: "Internal Server Error: " + err.message });
+    }
+};

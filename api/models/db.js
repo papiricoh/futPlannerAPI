@@ -546,23 +546,32 @@ const User = {
         }
         return null;
     },
-
+    
     async trainerGetPlayers(team_id) {
         const [rows, fields] = await connection.promise().query(`SELECT 
-            users.id,
-            users.first_name,
-            users.last_name,
-            users.photo_url,
-            users.date_of_birth,
-            players.position,
-            players.shirt_number,
-            players.nationality
+        users.id,
+        users.first_name,
+        users.last_name,
+        users.photo_url,
+        users.date_of_birth,
+        players.position,
+        players.shirt_number,
+        players.nationality
         FROM 
-            players
+        players
         JOIN 
-            users ON players.user_id = users.id
+        users ON players.user_id = users.id
         WHERE 
-            players.team_id = ` + team_id + `;`);
+        players.team_id = ` + team_id + `;`);
+        if (rows.length) {
+            return rows;
+        }
+        return null;
+    },
+
+    async trainerGetMatches(team_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM matches WHERE home_team_id = ` + team_id + ` OR away_team_id = ` + team_id);
         if (rows.length) {
             return rows;
         }
