@@ -32,7 +32,7 @@ exports.uploadFile = async (req, res) => {
             await User.updateProfileImage(data.user_id, imageUrl);
         }else if(data.type == 'club') {
             if(await User.getUserType(data.user_id) != 'owner') {
-                throw new Error("User is player or trainer")
+                throw new Error("User is player or trainer does not have permissions to change club shield")
             }
             const club = await User.getOwnerClub(data.user_id);
             
