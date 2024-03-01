@@ -37,6 +37,11 @@ exports.getAllClubs = async (req, res) => {
     }
 };
 
+/**
+ * Metodo que crea un nuevo usuario en la base de datos 
+ * @param {*} req datos introducidos de requerimiento: username, password, last_name, photo_url, date_of_birth, club_id, type
+ * @param {*} res respuesta en json
+ */
 exports.newUser = async (req, res) => {
     try {
         const data = req.body;
