@@ -609,7 +609,7 @@ const User = {
         if (rows.length) {
             return rows;
         }
-        return [];
+        return null;
     },
 };
 
