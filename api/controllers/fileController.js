@@ -9,7 +9,13 @@ async function checkToken(id, token) {
     }
 }
 
-
+/**
+ * el metodo uploadFile permite subir un archivo al servidor, las fotos son almacenadas 
+ * en el directorio de la api uploads y gestionadas segun su naturaleza (perfil o escudo)
+ * @param {*} req requerimientos, autentificacion y archivo a subir
+ * @param {*} res el resultado en json si la subida ha sido exitosa
+ * @returns nada, es usado como break en caso de no haber subido ningun archivo
+ */
 exports.uploadFile = async (req, res) => {
     try {
         const data = req.body;//data.user_id, data.token, data.type
@@ -21,7 +27,8 @@ exports.uploadFile = async (req, res) => {
         const file = req.file;
 
         if (!file) {
-            return res.status(400).send('No se ha subido ningún archivo.');
+            res.status(400).send('No se ha subido ningún archivo.');
+            return;
         }
 
         const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
@@ -49,6 +56,12 @@ exports.uploadFile = async (req, res) => {
     }
 };
 
+/**
+ * Middleware que comprueba a traves de los headers si el usuario tiene autorizacion para ver el archivo 
+ * @param {*} req requerimientos de la llamada (headers)
+ * @param {*} res resultado en json en caso de denegacion de acceso
+ * @param {*} next funcion de progreso del middleware, continua el acceso
+ */
 exports.checkAuth = async (req, res, next) => {
     try {
         const filePath = req.path;
@@ -60,6 +73,7 @@ exports.checkAuth = async (req, res, next) => {
         }
         console.log(filePath,userId,token);
 
+        //Bypass de los checkers del middleware al acceder a las imagenes
         if (true) {
             next();
         } else {
