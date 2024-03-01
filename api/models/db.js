@@ -554,6 +554,7 @@ const User = {
         users.last_name,
         users.photo_url,
         users.date_of_birth,
+        players.id AS player_id,
         players.position,
         players.shirt_number,
         players.nationality
@@ -576,6 +577,39 @@ const User = {
             return rows;
         }
         return null;
+    },
+
+    async trainerGetPlayer(player_id) {
+        const [rows, fields] = await connection.promise().query(`SELECT 
+        users.id,
+        users.first_name,
+        users.last_name,
+        users.photo_url,
+        users.date_of_birth,
+        players.id AS player_id,
+        players.position,
+        players.shirt_number,
+        players.nationality,
+        players.team_id
+        FROM 
+        players
+        JOIN 
+        users ON players.user_id = users.id
+        WHERE 
+        users.id = ` + player_id + `;`);
+        if (rows.length) {
+            return rows[0];
+        }
+        return null;
+    },
+
+    async getPlayerReports(player_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM reports WHERE player_id = ` + player_id);
+        if (rows.length) {
+            return rows;
+        }
+        return [];
     },
 };
 

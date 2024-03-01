@@ -42,6 +42,7 @@ TRAINER ROUTES
 */
 router.post('/trainer/getTeam', trainerController.getTeam)
 router.post('/trainer/getMatches', trainerController.getMatches)
+router.post('/trainer/getPlayerReports', trainerController.getPlayerReports)
 
 
 module.exports = router;
