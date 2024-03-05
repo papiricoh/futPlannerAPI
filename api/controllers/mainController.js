@@ -67,6 +67,7 @@ exports.newUser = async (req, res) => {
                 result = await User.newUser(new_data);
                 await User.newOwner(result, clubId);
                 break;
+                
             case "trainer":
                 var teamId = data.team_id;
                 await User.checkIfExistsClub(new_data.club_id);
@@ -80,6 +81,7 @@ exports.newUser = async (req, res) => {
                 result = await User.newUser(new_data);
                 await User.newTrainer(result, teamId);
                 break;
+
             case "player":
                 var teamId = data.team_id;
                 await User.checkIfExistsClub(new_data.club_id);
