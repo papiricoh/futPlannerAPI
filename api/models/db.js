@@ -22,6 +22,33 @@ const User = {
         }
         throw new Error('No Sub Categories in the database');
     },
+
+    async getClubByUser(user_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM clubs WHERE id = (SELECT club_id FROM users WHERE id = ?) LIMIT 1`, user_id);
+        if (rows.length) {
+            return rows[0];
+        }
+        throw new Error('No Club with id: ' + user_id);
+    },
+
+    async getMatch(match_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM matches WHERE id = ? LIMIT 1`, match_id);
+        if (rows.length) {
+            return rows[0];
+        }
+        throw new Error('No Match with id: ' + match_id);
+    },
+
+    async getMatchReports(match_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM reports WHERE match_id = ?`, match_id);
+        if (rows.length) {
+            return rows;
+        }
+        throw new Error('No Match with id: ' + match_id);
+    },
     async getAllCategories() {
         const [rows, fields] = await connection.promise().query(
         `SELECT * FROM categories`);

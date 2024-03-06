@@ -20,6 +20,7 @@ exports.getTeam = async (req, res) => {
         }
         var team = await User.trainerGetTeam(data.user_id);
         team.players = await User.trainerGetPlayers(team.id);
+        team.club = await User.getClubByUser(data.user_id);
         
         res.status(200).json(team);
     } catch (err) {
@@ -60,9 +61,39 @@ exports.getPlayerReports = async (req, res) => {
             throw new Error('El identificador del equipo del entrenador no es el mismo que el del jugador')
         }
         var reports = await User.getPlayerReports(player.player_id);
-        
+        for (const report of reports) {
+            report.match = await User.getMatch(report.match_id);
+        }
+
+
         res.status(200).json(reports);
     } catch (err) {
         res.status(500).json({ error: "Error: " + err.message });
     }
 };
+
+
+exports.getMatchReports = async (req, res) => {
+    try {
+        const data = req.body
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'trainer') {
+            throw new Error("User is not a trainer")
+        }
+        var team = await User.trainerGetTeam(data.user_id);
+        var match = await User.getMatch(data.match_id);
+        
+        match.reports = await User.getMatchReports(match.id);
+        
+
+
+        res.status(200).json(match);
+    } catch (err) {
+        res.status(500).json({ error: "Error: " + err.message });
+    }
+};
+
+//INSERT MATCH
+
