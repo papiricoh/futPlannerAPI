@@ -599,7 +599,7 @@ const User = {
 
     async trainerGetMatches(team_id) {
         const [rows, fields] = await connection.promise().query(
-        `SELECT * FROM matches WHERE home_team_id = ` + team_id + ` OR away_team_id = ` + team_id ` ORDER BY match_date`);
+        `SELECT * FROM matches WHERE home_team_id = ` + team_id + ` OR away_team_id = ` + team_id + ` ORDER BY match_date`);
         if (rows.length) {
             return rows;
         }
