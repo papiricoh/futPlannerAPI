@@ -60,7 +60,7 @@ exports.getPlayerReports = async (req, res) => {
         if(player.team_id != team.id) {
             throw new Error('El identificador del equipo del entrenador no es el mismo que el del jugador')
         }
-        var reports = await User.getPlayerReports(player.player_id);
+        var reports = await User.getPlayerLimitedReports(player.player_id);
         for (const report of reports) {
             report.match = await User.getMatch(report.match_id);
         }

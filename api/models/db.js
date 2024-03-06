@@ -630,6 +630,15 @@ const User = {
         return null;
     },
 
+    async getPlayerLimitedReports(player_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM reports WHERE player_id = ` + player_id + ` LIMIT 6`);
+        if (rows.length) {
+            return rows;
+        }
+        return null;
+    },
+
     async getPlayerReports(player_id) {
         const [rows, fields] = await connection.promise().query(
         `SELECT * FROM reports WHERE player_id = ` + player_id);
