@@ -125,3 +125,26 @@ exports.insertMatch = async (req, res) => {
         res.status(500).json({ error: "Error: " + err.message });
     }
 };
+
+//INSERT REPORTS
+exports.insertReports = async (req, res) => {
+    try {
+        const data = req.body
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'trainer') {
+            throw new Error("User is not a trainer")
+        }
+        //var team = await User.trainerGetTeam(data.user_id);
+        var ok = []
+        for (const report of data.reports) {
+            ok.push(await User.insertReport(data.player_id, data.match_id, report));
+        }
+        
+
+        res.status(200).json(ok);
+    } catch (err) {
+        res.status(500).json({ error: "Error: " + err.message });
+    }
+};
