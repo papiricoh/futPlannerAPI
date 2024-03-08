@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS players(
 
 CREATE TABLE IF NOT EXISTS matches(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    match_date DATE,
+    match_date TIMESTAMP,
     map_coords VARCHAR(255),
     place_name VARCHAR(255),
     home_team_id INT,
