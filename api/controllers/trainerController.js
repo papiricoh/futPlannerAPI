@@ -106,7 +106,17 @@ exports.insertMatch = async (req, res) => {
             throw new Error("User is not a trainer")
         }
         var team = await User.trainerGetTeam(data.user_id);
-        var ok = await User.insertMatch(team, data.match);
+        var match = { 
+            match_date: data.match_date,
+            map_coords: data.map_coords,
+            place_name: data.place_name,
+            home_team_id: data.home_team_id,
+            home_team_name: data.home_team_name,
+            away_team_id: data.away_team_id,
+            away_team_name: data.away_team_name,
+            sub_category_id: data.sub_category_id
+        }
+        var ok = await User.insertMatch(team, match);
         
 
 

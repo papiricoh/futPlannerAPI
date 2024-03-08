@@ -647,6 +647,21 @@ const User = {
         }
         return null;
     },
+    async insertMatch(team, match) {
+        try {
+            const result = await connection.promise().query(
+                `INSERT INTO matches (match_date, map_coords, place_name, home_team_id, home_team_name, away_team_id, away_team_name, sub_category_id, evaluated) VALUES (FROM_UNIXTIME(?), ?, ?, ?, ?, ?, ?, ?, 0)`,
+                [match.match_date, match.map_coords, match.place_name, match.home_team_id == team.id ? team.id : null, match.home_team_name, match.away_team_id == team.id ? team.id : null, match.away_team_name, team.sub_category_id]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error inserting match into the database');
+        }
+    },
 };
 
 module.exports = User;
