@@ -1,17 +1,42 @@
 const mysql = require("mysql2");
 const dbConfig = require("../config/config.js");
 
-const connection = mysql.createConnection({
-    host: dbConfig.HOST,
-    user: dbConfig.USER,
-    password: dbConfig.PASSWORD,
-    database: dbConfig.DB
-});
+let connection;
 
-connection.connect(error => {
-    if (error) throw error;
-    console.log("Successfully connected to the database.");
-});
+async function connectToDatabase() {
+    // Cierra la conexión existente, si está abierta
+    if (connection) {
+        await connection.end((err) => {
+            if (err) console.error('Error closing the connection:', err);
+        });
+    }
+
+    // Crea una nueva conexión
+    connection =  await mysql.createConnection({
+        host: dbConfig.HOST,
+        user: dbConfig.USER,
+        password: dbConfig.PASSWORD,
+        database: dbConfig.DB
+    });
+
+    await connection.connect(error => {
+        if (error) {
+            console.error("Error connecting to the database:", error);
+            return;
+        }
+        console.log("Successfully connected to the database.");
+    });
+}
+
+// Inicializa la conexión por primera vez
+connectToDatabase();
+
+// Programa el reinicio de la conexión cada X tiempo
+// Por ejemplo, para reiniciar la conexión cada hora, puedes usar 3600000 milisegundos (1 hora = 60 minutos * 60 segundos * 1000 milisegundos)
+setInterval(() => {
+    console.log("Reconnecting to the database...");
+    connectToDatabase();
+}, 3600000); // Ajusta el tiempo según sea necesario
 
 const User = {
     async getAllSubCategories(categoryId) {
