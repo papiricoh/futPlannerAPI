@@ -1,6 +1,9 @@
 # FutPlanner API
 
-FutPlanner API is a API to complement the app of FutPlanner. 
+FutPlanner API is a API to implement with the app enviroment of the FutPlanner project. 
+
+The futPlanner project aims to 'democratize' soccer player data, giving the trainer the capability to store data of the permformance of his players and view a sumary of the team performance.
+
 This document provides information on how to interact with the API to perform various operations.
 
 ### Version 0.1.0
@@ -20,7 +23,7 @@ This document provides information on how to interact with the API to perform va
 
 ### Base URL
 All API requests are made to the following base URL:
-localhost:8080
+`localhost:8080`
 
 ## Content
 - User logIn
