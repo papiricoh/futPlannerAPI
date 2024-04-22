@@ -77,12 +77,12 @@ The symbol `[]` in parameters means CAN be Null.
 - `/upload`:
   - Upload a file (.png, .jpg)
   - Parameters: `user_id, token, photo: File, type`
-  - Returns: `message, imageUrl`
+  - Returns: `message : String, imageUrl : String / href Url`
 
 - `/uploads/{imageUrl}`:
   - Get a file (.png, .jpg)
   - Parameters: `imageUrl` on Url
-  - Returns: `image` (.png, .jpg)
+  - Returns: `image : href Url` (.png, .jpg)
   
 #### TRAINERS
 
@@ -241,9 +241,9 @@ The symbol `[]` in parameters means CAN be Null.
     ]
   }
   ```
-  - Returns: List of insert IDs
+  - Returns: List of insert IDs `insert_list : List`
   
 - `/api/trainer/insertMatch`:
   - Get a list of matches with the user team
   - Parameters: `user_id, token, match_date, map_coords, place_name, [home_team_id], home_team_name, [away_team_id], away_team_name, sub_category_id`
-  - Returns: insert_id: Int
+  - Returns: `insert_id : Integer`
