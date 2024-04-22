@@ -11,6 +11,10 @@ This document provides information on how to interact with the API to perform va
 - [Methods](#methods)
   - [GET](#get)
   - [POST](#post)
+    - [SECURITY](#security)
+    - [USERS](#users)
+    - [UPLOADS](#uploads)
+    - [TRAINERS](#trainers)
 
 ## Getting Started
 
