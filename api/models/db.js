@@ -492,6 +492,18 @@ const User = {
         }
         return null;
     },
+    async getPlayersByClub(club_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT u.*, p.team_id
+        FROM users u
+        INNER JOIN players p ON u.id = p.user_id
+        LEFT JOIN teams tm ON p.team_id = tm.id
+        WHERE u.club_id = ?;`, [club_id]);
+        if (rows.length) {
+            return rows;
+        }
+        return null;
+    },
     async newTeam(data) {
         try {
             const result = await connection.promise().query(

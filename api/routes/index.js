@@ -34,6 +34,7 @@ router.post('/changeTrainerTeam/owner', userController.changeTrainerTeam)
 router.post('/removeTrainerFromTeam/owner', userController.removeTrainerFromTeam)
 router.post('/getAvariablePlayers/owner', userController.getAvariablePlayers)
 router.post('/addPlayersToTeam/owner', userController.addPlayersToTeam)
+router.post('/getAllUsers/owner', userController.getAllUsersOwner)
 
 /*
 #############################################################

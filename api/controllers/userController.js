@@ -300,6 +300,36 @@ exports.getAvariablePlayers = async (req, res) => {
     }
 };
 
+exports.getAllUsersOwner = async (req, res) => {
+    try {
+        const data = req.body;
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'owner') {
+            throw new Error("User is player or trainer")
+        }
+        const club_list = await User.getOwnerClub(data.user_id);
+        const club = club_list[0];
+        var trainers = await User.getTrainersByClub(club.id);
+        var players = await User.getPlayersByClub(club.id);
+
+        for (const u of trainers) {
+            delete u.password
+        }
+        for (const u of players) {
+            delete u.password
+        }
+        var result = {}
+        result.trainers = trainers;
+        result.players = players;
+        
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
 exports.addPlayersToTeam = async (req, res) => {
     try {
         const data = req.body;
