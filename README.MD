@@ -89,11 +89,6 @@ The symbol `[]` in parameters means CAN be Null.
   
 #### TRAINERS
 
-- `/upload`:
-  - Upload a file (.png, .jpg)
-  - Parameters: `user_id, token, photo: File, type`
-  - Returns: `message, imageUrl`
-
 - `/api/trainer/getTeam`:
   - Get a team
   - Parameters: `user_id, token`
