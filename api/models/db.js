@@ -245,7 +245,11 @@ const User = {
     async getOwnerClub(userId) {
         try {
             const result = await connection.promise().query(
-                `SELECT * FROM clubs WHERE owner_id = ?`, 
+                `SELECT c.*, COUNT(u.id) AS user_count
+                FROM clubs c
+                LEFT JOIN users u ON c.id = u.club_id
+                WHERE c.owner_id = ?
+                GROUP BY c.id;`, 
                 [userId]
             );
             if(result.length){
