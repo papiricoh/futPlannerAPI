@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const routes = require('./api/routes');
 
+app.use(cors());
+
 //Sistema de almacenaje de archivos
 const multer = require('multer');
 const path = require('path');
@@ -29,7 +31,6 @@ app.use('/uploads', fileController.checkAuth, express.static('uploads'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors());
 app.use('/api', routes);
 
 const port = process.env.PORT || 8080;
