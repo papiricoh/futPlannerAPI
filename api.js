@@ -11,18 +11,20 @@ const multer = require('multer');
 const path = require('path');
 const fileController = require('./api/controllers/fileController.js');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+const storage = multer.memoryStorage();
+
+const fFilter = (req, file, cb) => {
+    // Aceptar imágenes solo
+    if (file.mimetype.startsWith('image')) {
+        cb(null, true);
+    } else {
+        cb(new Error('No es un archivo de imagen!'), false);
     }
-});
+};
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage, fileFilter: fFilter });
 
-app.post('/upload', upload.single('photo'), fileController.uploadFile);
+app.post('/upload', upload.single('photo'), fileController.processImage, fileController.uploadFile);
 
 app.use('/uploads', fileController.checkAuth, express.static('uploads'));
 

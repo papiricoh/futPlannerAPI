@@ -1,5 +1,6 @@
 const User = require('../models/db');
 const config = require('../config/config');
+const sharp = require('sharp');
 
 async function checkToken(id, token) {
     if(token == await User.getUserToken(id)) {
@@ -33,8 +34,8 @@ exports.uploadFile = async (req, res) => {
 
         const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
 
-        //Almacenar la URL en tu base de datos si es tipo perfil o club
 
+        //Almacenar la URL en tu base de datos si es tipo perfil o club
         if(data.type == 'profile') {
             await User.updateProfileImage(data.user_id, imageUrl);
         }else if(data.type == 'club') {
@@ -84,3 +85,30 @@ exports.checkAuth = async (req, res, next) => {
         res.status(400).json({ error: err.message });
     }
 }
+
+// Middleware para procesar la imagen
+exports.processImage = async (req, res, next) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+
+    try {
+        const buffer = await sharp(req.file.buffer)
+            .resize(500, 500)
+            .toFormat('jpeg')
+            .jpeg({ quality: 90 })
+            .toBuffer();
+
+        req.file.buffer = buffer;
+        req.file.filename = `cropped-${Date.now()}.jpeg`;
+
+        const fs = require('fs');
+        const path = require('path');
+        const filepath = path.join('./uploads/', req.file.filename);
+        fs.writeFileSync(filepath, req.file.buffer);
+
+        next();
+    } catch (error) {
+        res.status(500).json({ error: 'Error processing image' + error });
+    }
+};
