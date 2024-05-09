@@ -718,6 +718,23 @@ const User = {
             throw new Error('Error inserting report into the database');
         }
     },
+
+    async changeClubName(user_id, name) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE clubs SET club_name = ?
+                WHERE id = (SELECT club_id FROM users WHERE id = ?);`,
+                [name, user_id]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error changin club name into the database');
+        }
+    },
 };
 
 module.exports = User;

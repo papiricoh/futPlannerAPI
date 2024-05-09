@@ -352,3 +352,20 @@ exports.addPlayersToTeam = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+exports.changeClubName = async (req, res) => {
+    try {
+        const data = req.body;
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'owner') {
+            throw new Error("User is player or trainer")
+        }
+        await User.changeClubName(data.user_id, data.name)
+        
+        res.status(200).json("OK");
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
