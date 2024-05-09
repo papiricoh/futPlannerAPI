@@ -222,10 +222,10 @@ The symbol `[]` in parameters means CAN be Null.
   {
     "user_id": 2,
     "token": null,
-    "player_id": 1,
     "match_id": 1,
     "reports": [
         {
+            "player_id": 1,
             "general_performance": 9, 
             "tactical_performance": 4, 
             "passes_quality": 2, 

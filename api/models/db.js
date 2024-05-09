@@ -703,11 +703,11 @@ const User = {
             throw new Error('Error inserting match into the database');
         }
     },
-    async insertReport(player_id, match_id, report) {
+    async insertReport(match_id, report) {
         try {
             const result = await connection.promise().query(
                 `INSERT INTO reports (player_id, match_id, general_performance, tactical_performance, passes_quality, ball_control, game_vision, played_time, goals, red_cards, yellow_cards) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                [player_id, match_id, report.general_performance, report.tactical_performance, report.passes_quality, report.ball_controll, report.game_vision, report.played_time, report.goals, report.red_cards, report.yellow_cards]
+                [report.player_id, match_id, report.general_performance, report.tactical_performance, report.passes_quality, report.ball_controll, report.game_vision, report.played_time, report.goals, report.red_cards, report.yellow_cards]
             );
             if(result.length){
                 return result[0].insertId;

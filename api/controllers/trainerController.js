@@ -139,7 +139,7 @@ exports.insertReports = async (req, res) => {
         //var team = await User.trainerGetTeam(data.user_id);
         var ok = []
         for (const report of data.reports) {
-            ok.push(await User.insertReport(data.player_id, data.match_id, report));
+            ok.push(await User.insertReport(data.match_id, report));
         }
         
 
