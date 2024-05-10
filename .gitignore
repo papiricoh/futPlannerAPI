@@ -5,3 +5,5 @@ https
 uploads/*
 !uploads/.gitinclude
 .vscode
+
+package-lock.json
