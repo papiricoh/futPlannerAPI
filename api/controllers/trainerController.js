@@ -82,7 +82,6 @@ exports.getMatchReports = async (req, res) => {
         if(await User.getUserType(data.user_id) != 'trainer') {
             throw new Error("User is not a trainer")
         }
-        var team = await User.trainerGetTeam(data.user_id);
         var match = await User.getMatch(data.match_id);
         
         match.reports = await User.getMatchReports(match.id);
@@ -144,6 +143,35 @@ exports.insertReports = async (req, res) => {
         
 
         res.status(200).json(ok);
+    } catch (err) {
+        res.status(500).json({ error: "Error: " + err.message });
+    }
+};
+
+
+exports.checkMatches = async (req, res) => {
+    try {
+        const data = req.body
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'trainer') {
+            throw new Error("User is not a trainer")
+        }
+        var team = await User.trainerGetTeam(data.user_id);
+        var pending_match = await User.getPendingMatch(team.id);
+        var next_match = await User.getNextMatch(team.id);
+        
+        
+        var result = {
+            pending_match: null,
+            next_match: null,
+        }
+        result.pending_match = pending_match;
+        result.next_match = next_match;
+
+
+        res.status(200).json(result);
     } catch (err) {
         res.status(500).json({ error: "Error: " + err.message });
     }

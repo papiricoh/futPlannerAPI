@@ -735,6 +735,24 @@ const User = {
             throw new Error('Error changin club name into the database');
         }
     },
+
+    async getPendingMatch(team_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM matches WHERE (home_team_id = ` + team_id + ` OR away_team_id = ` + team_id + `) AND evaluated = false AND match_date < CURRENT_DATE() ORDER BY match_date DESC LIMIT 1;`);
+        if (rows.length) {
+            return rows[0];
+        }
+        return null;
+    },
+
+    async getNextMatch(team_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT * FROM matches WHERE (home_team_id = ` + team_id + ` OR away_team_id = ` + team_id + `) AND match_date >= CURRENT_DATE() ORDER BY match_date ASC LIMIT 1;`);
+        if (rows.length) {
+            return rows[0];
+        }
+        return null;
+    },
 };
 
 module.exports = User;
