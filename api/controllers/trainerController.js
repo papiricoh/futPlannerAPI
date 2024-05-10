@@ -140,6 +140,7 @@ exports.insertReports = async (req, res) => {
         for (const report of data.reports) {
             ok.push(await User.insertReport(data.match_id, report));
         }
+        await User.evaluateMatch(data.match_id)
         
 
         res.status(200).json(ok);

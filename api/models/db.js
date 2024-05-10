@@ -753,6 +753,23 @@ const User = {
         }
         return null;
     },
+    
+    async evaluateMatch(match_id) {
+        try {
+            const result = await connection.promise().query(
+                `UPDATE matches SET evaluated = 1
+                WHERE id = ?;`,
+                [match_id]
+            );
+            if(result.length){
+                return result[0].insertId;
+            }
+            throw new Error();
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error evaluating match in the database');
+        }
+    },
 };
 
 module.exports = User;
