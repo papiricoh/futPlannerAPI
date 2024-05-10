@@ -738,7 +738,7 @@ const User = {
 
     async getPendingMatch(team_id) {
         const [rows, fields] = await connection.promise().query(
-        `SELECT * FROM matches WHERE (home_team_id = ` + team_id + ` OR away_team_id = ` + team_id + `) AND evaluated = false AND match_date < CURRENT_DATE() ORDER BY match_date DESC LIMIT 1;`);
+        `SELECT * FROM matches WHERE (home_team_id = ` + team_id + ` OR away_team_id = ` + team_id + `) AND evaluated = false AND match_date < CURRENT_TIMESTAMP() ORDER BY match_date DESC LIMIT 1;`);
         if (rows.length) {
             return rows[0];
         }
@@ -747,7 +747,7 @@ const User = {
 
     async getNextMatch(team_id) {
         const [rows, fields] = await connection.promise().query(
-        `SELECT * FROM matches WHERE (home_team_id = ` + team_id + ` OR away_team_id = ` + team_id + `) AND match_date >= CURRENT_DATE() ORDER BY match_date ASC LIMIT 1;`);
+        `SELECT * FROM matches WHERE (home_team_id = ` + team_id + ` OR away_team_id = ` + team_id + `) AND match_date >= CURRENT_TIMESTAMP() ORDER BY match_date ASC LIMIT 1;`);
         if (rows.length) {
             return rows[0];
         }
