@@ -191,7 +191,7 @@ exports.getTeamAnalytics = async (req, res) => {
         let raw_data = await User.getTeamAnalytics(team.id);
         
         const averages = {
-            performancePerMinute: (raw_data.avg_general_performance / raw_data.avg_played_time * 2.76).toFixed(2),
+            performancePerMinute: (raw_data.avg_general_performance / raw_data.avg_played_time).toFixed(2),
             goalRate: (raw_data.total_goals / (raw_data.total_matches * 90)).toFixed(2)
         };
 
