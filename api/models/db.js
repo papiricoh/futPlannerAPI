@@ -801,7 +801,6 @@ const User = {
     async getTeamAnalytics(team_id) {
         const [rows, fields] = await connection.promise().query(
         `SELECT 
-            r.match_id,
             COUNT(*) AS total_reports,
             AVG(r.general_performance) AS avg_general_performance,
             AVG(r.tactical_performance) AS avg_tactical_performance,
