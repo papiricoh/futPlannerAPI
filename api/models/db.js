@@ -803,6 +803,7 @@ const User = {
         const [rows, fields] = await connection.promise().query(
         `SELECT 
             COUNT(*) AS total_reports,
+            COUNT(r.match_id) AS total_matches,
             AVG(r.general_performance) AS avg_general_performance,
             AVG(r.tactical_performance) AS avg_tactical_performance,
             AVG(r.passes_quality) AS avg_passes_quality,
