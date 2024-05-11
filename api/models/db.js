@@ -819,7 +819,7 @@ const User = {
         AND r.general_performance > 0;
         `, [team_id]);
         if (rows.length) {
-            return rows;
+            return rows[0];
         }
         return null;
     },
