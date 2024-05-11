@@ -188,8 +188,12 @@ exports.getTeamAnalytics = async (req, res) => {
             throw new Error("User is not a trainer")
         }
         var team = await User.trainerGetTeam(data.user_id);
-        var result = await User.getTeamAnalytics(team.id);
+        let raw_data = await User.getTeamAnalytics(team.id);
+        
 
+        var result = raw_data
+
+        
 
         result.performancePerMinute = Number((raw_data.avg_general_performance / raw_data.avg_played_time).toFixed(2));
         result.goalRate = Number((raw_data.total_goals / (raw_data.total_matches * 90)).toFixed(2));
