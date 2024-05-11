@@ -754,6 +754,7 @@ const User = {
         return null;
     },
     
+    
     async evaluateMatch(match_id) {
         try {
             const result = await connection.promise().query(
@@ -769,6 +770,33 @@ const User = {
             console.error(error);
             throw new Error('Error evaluating match in the database');
         }
+    },
+    async getTeamAnalyticsPerMatch(team_id) {
+        const [rows, fields] = await connection.promise().query(
+        `SELECT 
+            r.match_id,
+            COUNT(*) AS total_reports,
+            AVG(r.general_performance) AS avg_general_performance,
+            AVG(r.tactical_performance) AS avg_tactical_performance,
+            AVG(r.passes_quality) AS avg_passes_quality,
+            AVG(r.ball_control) AS avg_ball_control,
+            AVG(r.game_vision) AS avg_game_vision,
+            AVG(r.played_time) AS avg_played_time,
+            SUM(r.goals) AS total_goals,
+            SUM(r.red_cards) AS total_red_cards,
+            SUM(r.yellow_cards) AS total_yellow_cards
+        FROM reports r
+        JOIN players p ON r.player_id = p.id
+        JOIN matches m ON r.match_id = m.id
+        WHERE m.evaluated = 1
+        AND p.team_id = 2
+        AND r.general_performance > 0
+        GROUP BY r.match_id;
+        `, [team_id]);
+        if (rows.length) {
+            return rows;
+        }
+        return null;
     },
 };
 

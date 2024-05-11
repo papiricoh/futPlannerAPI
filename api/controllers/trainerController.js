@@ -177,3 +177,23 @@ exports.checkMatches = async (req, res) => {
         res.status(500).json({ error: "Error: " + err.message });
     }
 };
+
+exports.getTeamAnalytics = async (req, res) => {
+    try {
+        const data = req.body
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'trainer') {
+            throw new Error("User is not a trainer")
+        }
+        var team = await User.trainerGetTeam(data.user_id);
+        let raw_data = await User.getTeamAnalyticsPerMatch(team.id);
+        
+        var result = raw_data
+
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json({ error: "Error: " + err.message });
+    }
+};
