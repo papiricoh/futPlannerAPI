@@ -196,6 +196,9 @@ exports.getTeamAnalytics = async (req, res) => {
         };
 
         var result = raw_data
+        result.performancePerMinute = averages.performancePerMinute;
+        result.goalRate = averages.goalRate;
+
 
         res.status(200).json(result);
     } catch (err) {
