@@ -782,6 +782,7 @@ const User = {
             AVG(r.ball_control) AS avg_ball_control,
             AVG(r.game_vision) AS avg_game_vision,
             AVG(r.played_time) AS avg_played_time,
+            SUM(r.played_time) AS total_played_time,
             SUM(r.goals) AS total_goals,
             SUM(r.red_cards) AS total_red_cards,
             SUM(r.yellow_cards) AS total_yellow_cards
