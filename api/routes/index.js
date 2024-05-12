@@ -36,7 +36,7 @@ router.post('/getAvariablePlayers/owner', userController.getAvariablePlayers)
 router.post('/addPlayersToTeam/owner', userController.addPlayersToTeam)
 router.post('/getAllUsers/owner', userController.getAllUsersOwner)
 router.post('/changeClubName/owner', userController.changeClubName)
-router.post('/getClubAnalytics/owner', trainerController.getClubAnalytics)
+router.post('/getClubAnalytics/owner', userController.getClubAnalytics)
 
 /*
 #############################################################
