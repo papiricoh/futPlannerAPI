@@ -381,7 +381,15 @@ exports.getClubAnalytics = async (req, res) => {
         }
         const club_list = await User.getOwnerClub(data.user_id);
         const club = club_list[0];
-        var result = await User.getTeamsByClub(club.id)
+        let teams = await User.getTeamsByClub(club.id)
+        var result = []
+
+        for (const team of teams) {
+            var team_data = await User.getTeamAnalytics(team.id);
+            team_data.id = team.id;
+            team_data.team_name = team.team_name;
+            result.push(team_data);
+        }
         
         res.status(200).json(result);
     } catch (err) {
