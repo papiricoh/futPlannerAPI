@@ -369,3 +369,22 @@ exports.changeClubName = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+exports.getClubAnalytics = async (req, res) => {
+    try {
+        const data = req.body;
+        if(config.tokenMode) {
+            await checkToken(data.user_id, data.token);
+        }
+        if(await User.getUserType(data.user_id) != 'owner') {
+            throw new Error("User is player or trainer")
+        }
+        const club_list = await User.getOwnerClub(data.user_id);
+        const club = club_list[0];
+        var result = await User.getTeamsByClub(club.id)
+        
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
