@@ -673,7 +673,7 @@ const User = {
 
     async getPlayerLimitedReports(player_id) {
         const [rows, fields] = await connection.promise().query(
-        `SELECT * FROM reports WHERE player_id = ` + player_id + ` LIMIT 6`);
+        `SELECT * FROM reports WHERE player_id = ` + player_id + ` AND general_performance > 0 LIMIT 100`);
         if (rows.length) {
             return rows;
         }
