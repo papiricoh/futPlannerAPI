@@ -1,5 +1,7 @@
 # FutPlanner API
 
+![FutPlanner Hero](hero.png)
+
 FutPlanner API is a API to implement with the app enviroment of the FutPlanner project. 
 
 The futPlanner project aims to 'democratize' soccer player data, giving the trainer the capability to store data of the permformance of his players and view a sumary of the team performance.
