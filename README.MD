@@ -65,7 +65,7 @@ node api.js
 
 6. Create Initial User:
 
-* Since the database comes with debug data but not with manual testing data, create a user using an API call. You can use Postman or a similar tool to send a POST request to the API.
+* Since the database comes with debug data but not with manual testing data, [create a user using an API call](README.MD/#users). You can use Postman or a similar tool to send a POST request to the API.
 
 ## Content
 - User logIn
