@@ -8,7 +8,7 @@ The futPlanner project aims to 'democratize' soccer player data, giving the trai
 
 This document provides information on how to interact with the API to perform various operations.
 
-### Version 1.0.3
+### Version 1.2.0
 
 ## Table of Contents
 - [Getting Started](#getting-started)
