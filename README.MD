@@ -12,6 +12,7 @@ This document provides information on how to interact with the API to perform va
 
 ## Table of Contents
 - [Getting Started](#getting-started)
+- [Installation](#Installation)
 - [Content](#content)
 - [Methods](#methods)
   - [GET](#get)
@@ -26,6 +27,45 @@ This document provides information on how to interact with the API to perform va
 ### Base URL
 All API requests are made to the following base URL:
 `localhost:8080`
+
+## Installation
+### Prerequisites
+
+* Node.js: Ensure Node.js is installed on your machine. You can download it from [nodejs.org](nodejs.org).
+* Database: Set up a local database (e.g., MySQL, MariaSQL).
+
+### Steps
+1. Clone the Repository:
+
+```
+git clone https://github.com/papiricoh/futPlannerAPI.git
+cd futplanner
+```
+
+2. Load the SQL to Your Database:
+
+* Import the provided SQL file into your database to set up the required tables and initial data.
+
+3. Rename Configuration File:
+
+* Navigate to the futPlannerAPI/api/config/ directory.
+* Rename config-template.js to config.js and update it with your local database access credentials.
+
+4. Install Dependencies:
+
+```
+npm install
+```
+
+5. Start the API:
+
+```
+node api.js
+```
+
+6. Create Initial User:
+
+* Since the database comes with debug data but not with manual testing data, create a user using an API call. You can use Postman or a similar tool to send a POST request to the API.
 
 ## Content
 - User logIn
